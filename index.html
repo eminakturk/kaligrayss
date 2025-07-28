@@ -13,7 +13,7 @@
     
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+      background: linear-gradient(135deg, #2c2c2c, #1a1a1a, #3a3a3a);
       color: #fff;
       min-height: 100vh;
       padding: 20px;
@@ -24,6 +24,7 @@
       max-width: 1200px;
       margin: 0 auto;
       padding: 20px;
+      padding-top: 20px;
     }
     
     header {
@@ -36,15 +37,34 @@
     .logo {
       width: 100px;
       height: 100px;
-      background: #ffc107;
-      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       margin: 0 auto 20px;
-      font-size: 40px;
-      color: #1a2a6c;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+    
+    .header-horn-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 30px;
+      height: 80px;
+    }
+    
+    .header-text {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      top: -10px;
+    }
+    
+    .logo-horn {
+      position: absolute;
+      z-index: 1;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
     }
     
     h1 {
@@ -62,9 +82,28 @@
     
     .gallery-container {
       position: relative;
-      margin: 40px auto;
+      margin: 20px auto;
       max-width: 1100px;
       padding: 20px 0;
+    }
+    
+    .gallery-text {
+      position: absolute;
+      left: 0;
+      top: -70px;
+      width: 200px;
+      color: rgba(255, 255, 255, 0.95);
+      font-size: 1rem;
+      font-weight: 700;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
+      line-height: 1.3;
+      z-index: 10;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 10px;
+      border-radius: 8px;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      text-align: center;
     }
     
     .swipe-instruction {
@@ -98,6 +137,7 @@
       padding: 20px 0;
       scrollbar-width: none;
       gap: 20px;
+      transition: scroll-left 0.8s cubic-bezier(0.23, 1, 0.32, 1);
     }
     
     .gallery::-webkit-scrollbar {
@@ -123,9 +163,8 @@
     
     .photo-img {
       width: 100%;
-      height: 200px;
+      height: 320px;
       object-fit: cover;
-      border-bottom: 3px solid #ffc107;
     }
     
     .photo-info {
@@ -185,7 +224,7 @@
       font-size: 1.5rem;
       cursor: pointer;
       z-index: 10;
-      display: flex;
+      display: none;
       align-items: center;
       justify-content: center;
       transition: all 0.3s ease;
@@ -206,7 +245,7 @@
     }
     
     .gallery-indicators {
-      display: flex;
+      display: none;
       justify-content: center;
       gap: 10px;
       margin-top: 20px;
@@ -226,23 +265,15 @@
     }
     
     footer {
-      text-align: center;
-      padding: 30px 0;
-      margin-top: 40px;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      display: none;
     }
     
     .contact-info {
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      margin-top: 20px;
+      display: none;
     }
     
     .contact-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      display: none;
       font-size: 1.1rem;
     }
     
@@ -254,6 +285,15 @@
       
       .subtitle {
         font-size: 1rem;
+      }
+      
+      .gallery-text {
+        left: 0;
+        top: -55px;
+        width: 160px;
+        font-size: 0.8rem;
+        padding: 6px;
+        line-height: 1.2;
       }
       
       .swipe-instruction {
@@ -279,6 +319,11 @@
       .arrow-right {
         right: -15px;
       }
+      
+      .gallery-container {
+        margin: 20px auto;
+        padding: 15px 5px;
+      }
     }
     
     @media (max-width: 480px) {
@@ -290,6 +335,15 @@
         width: 80px;
         height: 80px;
         font-size: 30px;
+      }
+      
+      .gallery-text {
+        left: 0;
+        top: -45px;
+        width: 150px;
+        font-size: 0.7rem;
+        padding: 5px;
+        line-height: 1.2;
       }
       
       .gallery {
@@ -312,22 +366,55 @@
         flex-direction: column;
         gap: 15px;
       }
+      
+      .gallery-container {
+        margin: 20px auto;
+        padding: 10px;
+      }
+      
+      .gallery-wrapper {
+        overflow: visible;
+      }
+      
+      .arrow {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+      }
+      
+      .arrow-left {
+        left: -10px;
+      }
+      
+      .arrow-right {
+        right: -10px;
+      }
     }
   </style>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
   <div class="container">
-    <header>
-      <div class="logo">
-        <i class="fas fa-camera"></i>
+    <div class="header-horn-container">
+      <div class="header-text">
+        <h2 style="font-family: 'Courier New', monospace; font-size: 1.5rem; color: #fff; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); margin: 0; text-transform: uppercase; letter-spacing: 0.1em;">LOREM IPSUM ANANI SIKSUN</h2>
       </div>
-      <h1>Photo Gallery</h1>
-      <p class="subtitle">Explore our collection of premium photography services</p>
-    </header>
+      
+      <div class="logo-horn">
+        <img src="devil-horn.png" alt="Devil Horn" style="width: 80px; height: 80px; object-fit: contain;">
+      </div>
+    </div>
     
     <div class="gallery-container">
-      <div class="swipe-instruction">Kaydır</div>
+      <div class="gallery-text">
+        Creative<br>
+        Photography<br>
+        Portfolio<br>
+        <a href="https://wa.me/12345678989" target="_blank" style="color: #25D366; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 5px; margin-top: 5px;">
+          <i class="fab fa-whatsapp"></i>
+          1234 5678 8989
+        </a>
+      </div>
       
       <div class="gallery-wrapper">
         <button class="arrow arrow-left" id="prevBtn">
@@ -338,73 +425,31 @@
           <!-- Card 1 -->
           <div class="photo-card">
             <img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Nature" class="photo-img">
-            <div class="photo-info">
-              <h3 class="photo-title">Nature Photography</h3>
-              <p class="photo-desc">Capture the breathtaking beauty of natural landscapes with our expert photography services.</p>
-              <a href="https://wa.me/1234567890" class="whatsapp-btn">
-                <i class="fab fa-whatsapp"></i> 1234 567 890
-              </a>
-            </div>
           </div>
           
           <!-- Card 2 -->
           <div class="photo-card">
             <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Food" class="photo-img">
-            <div class="photo-info">
-              <h3 class="photo-title">Food Photography</h3>
-              <p class="photo-desc">Make your culinary creations look irresistible with our professional food photography.</p>
-              <a href="https://wa.me/1234567891" class="whatsapp-btn">
-                <i class="fab fa-whatsapp"></i> 1234 567 891
-              </a>
-            </div>
           </div>
           
           <!-- Card 3 -->
           <div class="photo-card">
             <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Fashion" class="photo-img">
-            <div class="photo-info">
-              <h3 class="photo-title">Fashion Photography</h3>
-              <p class="photo-desc">Showcase your fashion line with stunning photography that captures every detail.</p>
-              <a href="https://wa.me/1234567892" class="whatsapp-btn">
-                <i class="fab fa-whatsapp"></i> 1234 567 892
-              </a>
-            </div>
           </div>
           
           <!-- Card 4 -->
           <div class="photo-card">
             <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Product" class="photo-img">
-            <div class="photo-info">
-              <h3 class="photo-title">Product Photography</h3>
-              <p class="photo-desc">Professional product photography that highlights features and boosts sales.</p>
-              <a href="https://wa.me/1234567893" class="whatsapp-btn">
-                <i class="fab fa-whatsapp"></i> 1234 567 893
-              </a>
-            </div>
           </div>
           
           <!-- Card 5 -->
           <div class="photo-card">
             <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Portrait" class="photo-img">
-            <div class="photo-info">
-              <h3 class="photo-title">Portrait Photography</h3>
-              <p class="photo-desc">Beautiful portraits that capture personality and emotion in every shot.</p>
-              <a href="https://wa.me/1234567894" class="whatsapp-btn">
-                <i class="fab fa-whatsapp"></i> 1234 567 894
-              </a>
-            </div>
           </div>
           
           <!-- Card 6 -->
           <div class="photo-card">
             <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Landscape" class="photo-img">
-            <div class="photo-info">
-              <h3 class="photo-title">Landscape Photography</h3>
-              <p class="photo-desc">Breathtaking landscape photography that captures the essence of natural beauty.</p>
-              <a href="https://wa.me/1234567895" class="whatsapp-btn">
-                <i class="fab fa-whatsapp"></i> 1234 567 895
-              </a>
-            </div>
           </div>
         </div>
         
@@ -416,48 +461,790 @@
       <div class="gallery-indicators" id="indicators"></div>
     </div>
     
-    <footer>
-      <p>Contact us for premium photography services</p>
-      <div class="contact-info">
-        <div class="contact-item">
-          <i class="fas fa-phone"></i>
-          <span>+90 123 456 7890</span>
-        </div>
-        <div class="contact-item">
-          <i class="fas fa-envelope"></i>
-          <span>info@photogallery.com</span>
-        </div>
-        <div class="contact-item">
-          <i class="fas fa-map-marker-alt"></i>
-          <span>Istanbul, Turkey</span>
-        </div>
+    <!-- Second Gallery -->
+    <div class="gallery-container">
+      <div class="gallery-text">
+        Professional<br>
+        Studio<br>
+        Sessions<br>
+        <a href="https://wa.me/12345678989" target="_blank" style="color: #25D366; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 5px; margin-top: 5px;">
+          <i class="fab fa-whatsapp"></i>
+          1234 5678 8989
+        </a>
       </div>
-    </footer>
+      
+      <div class="gallery-wrapper">
+        <button class="arrow arrow-left" id="prevBtn2">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        
+        <div class="gallery" id="gallery2">
+          <!-- Card 1 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Architecture" class="photo-img">
+          </div>
+          
+          <!-- Card 2 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Street" class="photo-img">
+          </div>
+          
+          <!-- Card 3 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0e4a6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Wedding" class="photo-img">
+          </div>
+          
+          <!-- Card 4 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Abstract" class="photo-img">
+          </div>
+          
+          <!-- Card 5 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1493612276216-ee3925520721?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Event" class="photo-img">
+          </div>
+          
+          <!-- Card 6 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Business" class="photo-img">
+          </div>
+        </div>
+        
+        <button class="arrow arrow-right" id="nextBtn2">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+      
+      <div class="gallery-indicators" id="indicators2"></div>
+    </div>
+    
+    <!-- Third Gallery -->
+    <div class="gallery-container">
+      <div class="gallery-text">
+        Artistic<br>
+        Vision<br>
+        Gallery<br>
+        <a href="https://wa.me/12345678989" target="_blank" style="color: #25D366; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 5px; margin-top: 5px;">
+          <i class="fab fa-whatsapp"></i>
+          1234 5678 8989
+        </a>
+      </div>
+      
+      <div class="gallery-wrapper">
+        <button class="arrow arrow-left" id="prevBtn3">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        
+        <div class="gallery" id="gallery3">
+          <!-- Card 1 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1492571350019-22de08371fd3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Sports" class="photo-img">
+          </div>
+          
+          <!-- Card 2 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Wildlife" class="photo-img">
+          </div>
+          
+          <!-- Card 3 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Travel" class="photo-img">
+          </div>
+          
+          <!-- Card 4 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Macro" class="photo-img">
+          </div>
+          
+          <!-- Card 5 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Sunset" class="photo-img">
+          </div>
+          
+          <!-- Card 6 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Automotive" class="photo-img">
+          </div>
+        </div>
+        
+        <button class="arrow arrow-right" id="nextBtn3">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+      
+      <div class="gallery-indicators" id="indicators3"></div>
+    </div>
+    
+    <!-- Fourth Gallery -->
+    <div class="gallery-container">
+      <div class="gallery-text">
+        Premium<br>
+        Photography<br>
+        Services<br>
+        <a href="https://wa.me/12345678989" target="_blank" style="color: #25D366; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 5px; margin-top: 5px;">
+          <i class="fab fa-whatsapp"></i>
+          1234 5678 8989
+        </a>
+      </div>
+      
+      <div class="gallery-wrapper">
+        <button class="arrow arrow-left" id="prevBtn4">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        
+        <div class="gallery" id="gallery4">
+          <!-- Card 1 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1446776848843-7c4c96efe0d0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Documentary" class="photo-img">
+          </div>
+          
+          <!-- Card 2 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Studio" class="photo-img">
+          </div>
+          
+          <!-- Card 3 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1506629905607-676dd52f6ad7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Aerial" class="photo-img">
+          </div>
+          
+          <!-- Card 4 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Night" class="photo-img">
+          </div>
+          
+          <!-- Card 5 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1569173112611-52a7cd38bea9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Fine Art" class="photo-img">
+          </div>
+          
+          <!-- Card 6 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Commercial" class="photo-img">
+          </div>
+        </div>
+        
+        <button class="arrow arrow-right" id="nextBtn4">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+      
+      <div class="gallery-indicators" id="indicators4"></div>
+    </div>
+    
+    <!-- Fifth Gallery -->
+    <div class="gallery-container">
+      <div class="gallery-text">
+        Creative<br>
+        Photography<br>
+        Portfolio<br>
+        <a href="https://wa.me/12345678989" target="_blank" style="color: #25D366; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 5px; margin-top: 5px;">
+          <i class="fab fa-whatsapp"></i>
+          1234 5678 8989
+        </a>
+      </div>
+      
+      <div class="gallery-wrapper">
+        <button class="arrow arrow-left" id="prevBtn5">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        
+        <div class="gallery" id="gallery5">
+          <!-- Card 1 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Nature" class="photo-img">
+          </div>
+          
+          <!-- Card 2 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Food" class="photo-img">
+          </div>
+          
+          <!-- Card 3 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Fashion" class="photo-img">
+          </div>
+          
+          <!-- Card 4 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Product" class="photo-img">
+          </div>
+          
+          <!-- Card 5 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Portrait" class="photo-img">
+          </div>
+          
+          <!-- Card 6 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Landscape" class="photo-img">
+          </div>
+        </div>
+        
+        <button class="arrow arrow-right" id="nextBtn5">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+      
+      <div class="gallery-indicators" id="indicators5"></div>
+    </div>
+    
+    <!-- Sixth Gallery -->
+    <div class="gallery-container">
+      <div class="gallery-text">
+        Professional<br>
+        Studio<br>
+        Sessions<br>
+        <a href="https://wa.me/12345678989" target="_blank" style="color: #25D366; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 5px; margin-top: 5px;">
+          <i class="fab fa-whatsapp"></i>
+          1234 5678 8989
+        </a>
+      </div>
+      
+      <div class="gallery-wrapper">
+        <button class="arrow arrow-left" id="prevBtn6">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        
+        <div class="gallery" id="gallery6">
+          <!-- Card 1 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Architecture" class="photo-img">
+          </div>
+          
+          <!-- Card 2 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Street" class="photo-img">
+          </div>
+          
+          <!-- Card 3 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0e4a6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Wedding" class="photo-img">
+          </div>
+          
+          <!-- Card 4 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Abstract" class="photo-img">
+          </div>
+          
+          <!-- Card 5 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1493612276216-ee3925520721?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Event" class="photo-img">
+          </div>
+          
+          <!-- Card 6 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Business" class="photo-img">
+          </div>
+        </div>
+        
+        <button class="arrow arrow-right" id="nextBtn6">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+      
+      <div class="gallery-indicators" id="indicators6"></div>
+    </div>
+    
+    <!-- Seventh Gallery -->
+    <div class="gallery-container">
+      <div class="gallery-text">
+        Artistic<br>
+        Vision<br>
+        Gallery<br>
+        <a href="https://wa.me/12345678989" target="_blank" style="color: #25D366; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 5px; margin-top: 5px;">
+          <i class="fab fa-whatsapp"></i>
+          1234 5678 8989
+        </a>
+      </div>
+      
+      <div class="gallery-wrapper">
+        <button class="arrow arrow-left" id="prevBtn7">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        
+        <div class="gallery" id="gallery7">
+          <!-- Card 1 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1492571350019-22de08371fd3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Sports" class="photo-img">
+          </div>
+          
+          <!-- Card 2 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Wildlife" class="photo-img">
+          </div>
+          
+          <!-- Card 3 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Travel" class="photo-img">
+          </div>
+          
+          <!-- Card 4 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Macro" class="photo-img">
+          </div>
+          
+          <!-- Card 5 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Sunset" class="photo-img">
+          </div>
+          
+          <!-- Card 6 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Automotive" class="photo-img">
+          </div>
+        </div>
+        
+        <button class="arrow arrow-right" id="nextBtn7">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+      
+      <div class="gallery-indicators" id="indicators7"></div>
+    </div>
+    
+    <!-- Eighth Gallery -->
+    <div class="gallery-container">
+      <div class="gallery-text">
+        Premium<br>
+        Photography<br>
+        Services<br>
+        <a href="https://wa.me/12345678989" target="_blank" style="color: #25D366; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 5px; margin-top: 5px;">
+          <i class="fab fa-whatsapp"></i>
+          1234 5678 8989
+        </a>
+      </div>
+      
+      <div class="gallery-wrapper">
+        <button class="arrow arrow-left" id="prevBtn8">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        
+        <div class="gallery" id="gallery8">
+          <!-- Card 1 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1446776848843-7c4c96efe0d0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Documentary" class="photo-img">
+          </div>
+          
+          <!-- Card 2 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Studio" class="photo-img">
+          </div>
+          
+          <!-- Card 3 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1506629905607-676dd52f6ad7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Aerial" class="photo-img">
+          </div>
+          
+          <!-- Card 4 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Night" class="photo-img">
+          </div>
+          
+          <!-- Card 5 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1569173112611-52a7cd38bea9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Fine Art" class="photo-img">
+          </div>
+          
+          <!-- Card 6 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Commercial" class="photo-img">
+          </div>
+        </div>
+        
+        <button class="arrow arrow-right" id="nextBtn8">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+      
+      <div class="gallery-indicators" id="indicators8"></div>
+    </div>
+    
+    <!-- Ninth Gallery -->
+    <div class="gallery-container">
+      <div class="gallery-text">
+        Creative<br>
+        Photography<br>
+        Portfolio<br>
+        <a href="https://wa.me/12345678989" target="_blank" style="color: #25D366; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 5px; margin-top: 5px;">
+          <i class="fab fa-whatsapp"></i>
+          1234 5678 8989
+        </a>
+      </div>
+      
+      <div class="gallery-wrapper">
+        <button class="arrow arrow-left" id="prevBtn9">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        
+        <div class="gallery" id="gallery9">
+          <!-- Card 1 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Nature" class="photo-img">
+          </div>
+          
+          <!-- Card 2 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Food" class="photo-img">
+          </div>
+          
+          <!-- Card 3 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Fashion" class="photo-img">
+          </div>
+          
+          <!-- Card 4 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Product" class="photo-img">
+          </div>
+          
+          <!-- Card 5 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Portrait" class="photo-img">
+          </div>
+          
+          <!-- Card 6 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Landscape" class="photo-img">
+          </div>
+        </div>
+        
+        <button class="arrow arrow-right" id="nextBtn9">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+      
+      <div class="gallery-indicators" id="indicators9"></div>
+    </div>
+    
+    <!-- Tenth Gallery -->
+    <div class="gallery-container">
+      <div class="gallery-text">
+        Professional<br>
+        Studio<br>
+        Sessions<br>
+        <a href="https://wa.me/12345678989" target="_blank" style="color: #25D366; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 5px; margin-top: 5px;">
+          <i class="fab fa-whatsapp"></i>
+          1234 5678 8989
+        </a>
+      </div>
+      
+      <div class="gallery-wrapper">
+        <button class="arrow arrow-left" id="prevBtn10">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        
+        <div class="gallery" id="gallery10">
+          <!-- Card 1 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Architecture" class="photo-img">
+          </div>
+          
+          <!-- Card 2 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Street" class="photo-img">
+          </div>
+          
+          <!-- Card 3 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0e4a6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Wedding" class="photo-img">
+          </div>
+          
+          <!-- Card 4 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Abstract" class="photo-img">
+          </div>
+          
+          <!-- Card 5 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1493612276216-ee3925520721?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Event" class="photo-img">
+          </div>
+          
+          <!-- Card 6 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Business" class="photo-img">
+          </div>
+        </div>
+        
+        <button class="arrow arrow-right" id="nextBtn10">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+      
+      <div class="gallery-indicators" id="indicators10"></div>
+    </div>
+    
+    <!-- Eleventh Gallery -->
+    <div class="gallery-container">
+      <div class="gallery-text">
+        Artistic<br>
+        Vision<br>
+        Gallery<br>
+        <a href="https://wa.me/12345678989" target="_blank" style="color: #25D366; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 5px; margin-top: 5px;">
+          <i class="fab fa-whatsapp"></i>
+          1234 5678 8989
+        </a>
+      </div>
+      
+      <div class="gallery-wrapper">
+        <button class="arrow arrow-left" id="prevBtn11">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        
+        <div class="gallery" id="gallery11">
+          <!-- Card 1 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1492571350019-22de08371fd3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Sports" class="photo-img">
+          </div>
+          
+          <!-- Card 2 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Wildlife" class="photo-img">
+          </div>
+          
+          <!-- Card 3 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Travel" class="photo-img">
+          </div>
+          
+          <!-- Card 4 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Macro" class="photo-img">
+          </div>
+          
+          <!-- Card 5 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Sunset" class="photo-img">
+          </div>
+          
+          <!-- Card 6 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Automotive" class="photo-img">
+          </div>
+        </div>
+        
+        <button class="arrow arrow-right" id="nextBtn11">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+      
+      <div class="gallery-indicators" id="indicators11"></div>
+    </div>
+    
+    <!-- Twelfth Gallery -->
+    <div class="gallery-container">
+      <div class="gallery-text">
+        Premium<br>
+        Photography<br>
+        Services<br>
+        <a href="https://wa.me/12345678989" target="_blank" style="color: #25D366; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 5px; margin-top: 5px;">
+          <i class="fab fa-whatsapp"></i>
+          1234 5678 8989
+        </a>
+      </div>
+      
+      <div class="gallery-wrapper">
+        <button class="arrow arrow-left" id="prevBtn12">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        
+        <div class="gallery" id="gallery12">
+          <!-- Card 1 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1446776848843-7c4c96efe0d0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Documentary" class="photo-img">
+          </div>
+          
+          <!-- Card 2 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Studio" class="photo-img">
+          </div>
+          
+          <!-- Card 3 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1506629905607-676dd52f6ad7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Aerial" class="photo-img">
+          </div>
+          
+          <!-- Card 4 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Night" class="photo-img">
+          </div>
+          
+          <!-- Card 5 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1569173112611-52a7cd38bea9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Fine Art" class="photo-img">
+          </div>
+          
+          <!-- Card 6 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Commercial" class="photo-img">
+          </div>
+        </div>
+        
+        <button class="arrow arrow-right" id="nextBtn12">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+      
+      <div class="gallery-indicators" id="indicators12"></div>
+    </div>
+    
+    <!-- Thirteenth Gallery -->
+    <div class="gallery-container">
+      <div class="gallery-text">
+        Creative<br>
+        Photography<br>
+        Portfolio<br>
+        <a href="https://wa.me/12345678989" target="_blank" style="color: #25D366; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 5px; margin-top: 5px;">
+          <i class="fab fa-whatsapp"></i>
+          1234 5678 8989
+        </a>
+      </div>
+      
+      <div class="gallery-wrapper">
+        <button class="arrow arrow-left" id="prevBtn13">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        
+        <div class="gallery" id="gallery13">
+          <!-- Card 1 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Nature" class="photo-img">
+          </div>
+          
+          <!-- Card 2 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Food" class="photo-img">
+          </div>
+          
+          <!-- Card 3 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Fashion" class="photo-img">
+          </div>
+          
+          <!-- Card 4 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Product" class="photo-img">
+          </div>
+          
+          <!-- Card 5 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Portrait" class="photo-img">
+          </div>
+          
+          <!-- Card 6 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Landscape" class="photo-img">
+          </div>
+        </div>
+        
+        <button class="arrow arrow-right" id="nextBtn13">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+      
+      <div class="gallery-indicators" id="indicators13"></div>
+    </div>
+    
+    <!-- Fourteenth Gallery -->
+    <div class="gallery-container">
+      <div class="gallery-text">
+        Professional<br>
+        Studio<br>
+        Sessions<br>
+        <a href="https://wa.me/12345678989" target="_blank" style="color: #25D366; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 5px; margin-top: 5px;">
+          <i class="fab fa-whatsapp"></i>
+          1234 5678 8989
+        </a>
+      </div>
+      
+      <div class="gallery-wrapper">
+        <button class="arrow arrow-left" id="prevBtn14">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        
+        <div class="gallery" id="gallery14">
+          <!-- Card 1 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Architecture" class="photo-img">
+          </div>
+          
+          <!-- Card 2 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Street" class="photo-img">
+          </div>
+          
+          <!-- Card 3 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0e4a6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Wedding" class="photo-img">
+          </div>
+          
+          <!-- Card 4 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Abstract" class="photo-img">
+          </div>
+          
+          <!-- Card 5 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1493612276216-ee3925520721?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Event" class="photo-img">
+          </div>
+          
+          <!-- Card 6 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Business" class="photo-img">
+          </div>
+        </div>
+        
+        <button class="arrow arrow-right" id="nextBtn14">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+      
+      <div class="gallery-indicators" id="indicators14"></div>
+    </div>
   </div>
   
   <script>
+    // Global variables for synchronized sliding
+    let globalAutoSlideInterval;
+    let galleries = [];
+    
     document.addEventListener('DOMContentLoaded', function() {
       const gallery = document.getElementById('gallery');
       const prevBtn = document.getElementById('prevBtn');
       const nextBtn = document.getElementById('nextBtn');
       const indicatorsContainer = document.getElementById('indicators');
-      const cards = document.querySelectorAll('.photo-card');
+      const cards = document.querySelectorAll('#gallery .photo-card');
       let currentIndex = 0;
+      
+      // Add to global galleries array
+      galleries.push({
+        element: gallery,
+        cards: cards,
+        currentIndex: 0,
+        indicators: null,
+        scrollToCard: null,
+        updateIndicators: null
+      });
       
       // Create indicators
       cards.forEach((_, index) => {
         const indicator = document.createElement('div');
         indicator.classList.add('indicator');
         if (index === 0) indicator.classList.add('active');
-        indicator.addEventListener('click', () => scrollToCard(index));
+        indicator.addEventListener('click', () => {
+          scrollToCard(index);
+          resetGlobalAutoSlide();
+        });
         indicatorsContainer.appendChild(indicator);
       });
       
-      const indicators = document.querySelectorAll('.indicator');
+      const indicators = document.querySelectorAll('#indicators .indicator');
+      galleries[0].indicators = indicators;
       
       // Function to scroll to a specific card
       function scrollToCard(index) {
         currentIndex = index;
+        galleries[0].currentIndex = index;
         const cardWidth = cards[0].offsetWidth + 20; // Including gap
         gallery.scrollTo({
           left: index * cardWidth,
@@ -465,6 +1252,8 @@
         });
         updateIndicators();
       }
+      
+      galleries[0].scrollToCard = scrollToCard;
       
       // Update active indicator
       function updateIndicators() {
@@ -477,17 +1266,25 @@
         });
       }
       
+      galleries[0].updateIndicators = updateIndicators;
+      
       // Navigation buttons
       prevBtn.addEventListener('click', () => {
         if (currentIndex > 0) {
           scrollToCard(currentIndex - 1);
+        } else {
+          scrollToCard(cards.length - 1);
         }
+        resetGlobalAutoSlide();
       });
       
       nextBtn.addEventListener('click', () => {
         if (currentIndex < cards.length - 1) {
           scrollToCard(currentIndex + 1);
+        } else {
+          scrollToCard(0);
         }
+        resetGlobalAutoSlide();
       });
       
       // Handle scroll events to update indicators
@@ -495,21 +1292,1311 @@
         const cardWidth = cards[0].offsetWidth + 20;
         const scrollPosition = gallery.scrollLeft;
         currentIndex = Math.round(scrollPosition / cardWidth);
+        galleries[0].currentIndex = currentIndex;
         updateIndicators();
       });
       
       // Handle keyboard navigation
       document.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowLeft' && currentIndex > 0) {
-          scrollToCard(currentIndex - 1);
-        } else if (e.key === 'ArrowRight' && currentIndex < cards.length - 1) {
-          scrollToCard(currentIndex + 1);
+        if (e.key === 'ArrowLeft') {
+          if (currentIndex > 0) {
+            scrollToCard(currentIndex - 1);
+          } else {
+            scrollToCard(cards.length - 1);
+          }
+          resetGlobalAutoSlide();
+        } else if (e.key === 'ArrowRight') {
+          if (currentIndex < cards.length - 1) {
+            scrollToCard(currentIndex + 1);
+          } else {
+            scrollToCard(0);
+          }
+          resetGlobalAutoSlide();
         }
+      });
+      
+      // Pause auto slide on hover
+      gallery.addEventListener('mouseenter', () => {
+        clearInterval(globalAutoSlideInterval);
+      });
+      
+      gallery.addEventListener('mouseleave', () => {
+        startGlobalAutoSlide();
       });
       
       // Initialize gallery
       updateIndicators();
     });
+
+    // Second Gallery JavaScript
+    document.addEventListener('DOMContentLoaded', function() {
+      const gallery2 = document.getElementById('gallery2');
+      const prevBtn2 = document.getElementById('prevBtn2');
+      const nextBtn2 = document.getElementById('nextBtn2');
+      const indicatorsContainer2 = document.getElementById('indicators2');
+      const cards2 = document.querySelectorAll('#gallery2 .photo-card');
+      let currentIndex2 = 0;
+      
+      // Add to global galleries array
+      galleries.push({
+        element: gallery2,
+        cards: cards2,
+        currentIndex: 0,
+        indicators: null,
+        scrollToCard: null,
+        updateIndicators: null
+      });
+      
+      // Create indicators for second gallery
+      cards2.forEach((_, index) => {
+        const indicator = document.createElement('div');
+        indicator.classList.add('indicator');
+        if (index === 0) indicator.classList.add('active');
+        indicator.addEventListener('click', () => {
+          scrollToCard2(index);
+          resetGlobalAutoSlide();
+        });
+        indicatorsContainer2.appendChild(indicator);
+      });
+      
+      const indicators2 = document.querySelectorAll('#indicators2 .indicator');
+      galleries[1].indicators = indicators2;
+      
+      // Function to scroll to a specific card in second gallery
+      function scrollToCard2(index) {
+        currentIndex2 = index;
+        galleries[1].currentIndex = index;
+        const cardWidth = cards2[0].offsetWidth + 20; // Including gap
+        gallery2.scrollTo({
+          left: index * cardWidth,
+          behavior: 'smooth'
+        });
+        updateIndicators2();
+      }
+      
+      galleries[1].scrollToCard = scrollToCard2;
+      
+      // Update active indicator for second gallery
+      function updateIndicators2() {
+        indicators2.forEach((indicator, index) => {
+          if (index === currentIndex2) {
+            indicator.classList.add('active');
+          } else {
+            indicator.classList.remove('active');
+          }
+        });
+      }
+      
+      galleries[1].updateIndicators = updateIndicators2;
+      
+      // Navigation buttons for second gallery
+      prevBtn2.addEventListener('click', () => {
+        if (currentIndex2 > 0) {
+          scrollToCard2(currentIndex2 - 1);
+        } else {
+          scrollToCard2(cards2.length - 1);
+        }
+        resetGlobalAutoSlide();
+      });
+      
+      nextBtn2.addEventListener('click', () => {
+        if (currentIndex2 < cards2.length - 1) {
+          scrollToCard2(currentIndex2 + 1);
+        } else {
+          scrollToCard2(0);
+        }
+        resetGlobalAutoSlide();
+      });
+      
+      // Handle scroll events to update indicators for second gallery
+      gallery2.addEventListener('scroll', () => {
+        const cardWidth = cards2[0].offsetWidth + 20;
+        const scrollPosition = gallery2.scrollLeft;
+        currentIndex2 = Math.round(scrollPosition / cardWidth);
+        galleries[1].currentIndex = currentIndex2;
+        updateIndicators2();
+      });
+      
+      // Pause auto slide on hover for second gallery
+      gallery2.addEventListener('mouseenter', () => {
+        clearInterval(globalAutoSlideInterval);
+      });
+      
+      gallery2.addEventListener('mouseleave', () => {
+        startGlobalAutoSlide();
+      });
+      
+      // Initialize second gallery
+      updateIndicators2();
+    });
+
+    // Third Gallery JavaScript
+    document.addEventListener('DOMContentLoaded', function() {
+      const gallery3 = document.getElementById('gallery3');
+      const prevBtn3 = document.getElementById('prevBtn3');
+      const nextBtn3 = document.getElementById('nextBtn3');
+      const indicatorsContainer3 = document.getElementById('indicators3');
+      const cards3 = document.querySelectorAll('#gallery3 .photo-card');
+      let currentIndex3 = 0;
+      
+      // Add to global galleries array
+      galleries.push({
+        element: gallery3,
+        cards: cards3,
+        currentIndex: 0,
+        indicators: null,
+        scrollToCard: null,
+        updateIndicators: null
+      });
+      
+      // Create indicators for third gallery
+      cards3.forEach((_, index) => {
+        const indicator = document.createElement('div');
+        indicator.classList.add('indicator');
+        if (index === 0) indicator.classList.add('active');
+        indicator.addEventListener('click', () => {
+          scrollToCard3(index);
+          resetGlobalAutoSlide();
+        });
+        indicatorsContainer3.appendChild(indicator);
+      });
+      
+      const indicators3 = document.querySelectorAll('#indicators3 .indicator');
+      galleries[2].indicators = indicators3;
+      
+      // Function to scroll to a specific card in third gallery
+      function scrollToCard3(index) {
+        currentIndex3 = index;
+        galleries[2].currentIndex = index;
+        const cardWidth = cards3[0].offsetWidth + 20; // Including gap
+        gallery3.scrollTo({
+          left: index * cardWidth,
+          behavior: 'smooth'
+        });
+        updateIndicators3();
+      }
+      
+      galleries[2].scrollToCard = scrollToCard3;
+      
+      // Update active indicator for third gallery
+      function updateIndicators3() {
+        indicators3.forEach((indicator, index) => {
+          if (index === currentIndex3) {
+            indicator.classList.add('active');
+          } else {
+            indicator.classList.remove('active');
+          }
+        });
+      }
+      
+      galleries[2].updateIndicators = updateIndicators3;
+      
+      // Navigation buttons for third gallery
+      prevBtn3.addEventListener('click', () => {
+        if (currentIndex3 > 0) {
+          scrollToCard3(currentIndex3 - 1);
+        } else {
+          scrollToCard3(cards3.length - 1);
+        }
+        resetGlobalAutoSlide();
+      });
+      
+      nextBtn3.addEventListener('click', () => {
+        if (currentIndex3 < cards3.length - 1) {
+          scrollToCard3(currentIndex3 + 1);
+        } else {
+          scrollToCard3(0);
+        }
+        resetGlobalAutoSlide();
+      });
+      
+      // Handle scroll events to update indicators for third gallery
+      gallery3.addEventListener('scroll', () => {
+        const cardWidth = cards3[0].offsetWidth + 20;
+        const scrollPosition = gallery3.scrollLeft;
+        currentIndex3 = Math.round(scrollPosition / cardWidth);
+        galleries[2].currentIndex = currentIndex3;
+        updateIndicators3();
+      });
+      
+      // Pause auto slide on hover for third gallery
+      gallery3.addEventListener('mouseenter', () => {
+        clearInterval(globalAutoSlideInterval);
+      });
+      
+      gallery3.addEventListener('mouseleave', () => {
+        startGlobalAutoSlide();
+      });
+      
+      // Initialize third gallery
+      updateIndicators3();
+    });
+
+    // Fourth Gallery JavaScript
+    document.addEventListener('DOMContentLoaded', function() {
+      const gallery4 = document.getElementById('gallery4');
+      const prevBtn4 = document.getElementById('prevBtn4');
+      const nextBtn4 = document.getElementById('nextBtn4');
+      const indicatorsContainer4 = document.getElementById('indicators4');
+      const cards4 = document.querySelectorAll('#gallery4 .photo-card');
+      let currentIndex4 = 0;
+      
+      // Add to global galleries array
+      galleries.push({
+        element: gallery4,
+        cards: cards4,
+        currentIndex: 0,
+        indicators: null,
+        scrollToCard: null,
+        updateIndicators: null
+      });
+      
+      // Create indicators for fourth gallery
+      cards4.forEach((_, index) => {
+        const indicator = document.createElement('div');
+        indicator.classList.add('indicator');
+        if (index === 0) indicator.classList.add('active');
+        indicator.addEventListener('click', () => {
+          scrollToCard4(index);
+          resetGlobalAutoSlide();
+        });
+        indicatorsContainer4.appendChild(indicator);
+      });
+      
+      const indicators4 = document.querySelectorAll('#indicators4 .indicator');
+      galleries[3].indicators = indicators4;
+      
+      // Function to scroll to a specific card in fourth gallery
+      function scrollToCard4(index) {
+        currentIndex4 = index;
+        galleries[3].currentIndex = index;
+        const cardWidth = cards4[0].offsetWidth + 20; // Including gap
+        gallery4.scrollTo({
+          left: index * cardWidth,
+          behavior: 'smooth'
+        });
+        updateIndicators4();
+      }
+      
+      galleries[3].scrollToCard = scrollToCard4;
+      
+      // Update active indicator for fourth gallery
+      function updateIndicators4() {
+        indicators4.forEach((indicator, index) => {
+          if (index === currentIndex4) {
+            indicator.classList.add('active');
+          } else {
+            indicator.classList.remove('active');
+          }
+        });
+      }
+      
+      galleries[3].updateIndicators = updateIndicators4;
+      
+      // Navigation buttons for fourth gallery
+      prevBtn4.addEventListener('click', () => {
+        if (currentIndex4 > 0) {
+          scrollToCard4(currentIndex4 - 1);
+        } else {
+          scrollToCard4(cards4.length - 1);
+        }
+        resetGlobalAutoSlide();
+      });
+      
+      nextBtn4.addEventListener('click', () => {
+        if (currentIndex4 < cards4.length - 1) {
+          scrollToCard4(currentIndex4 + 1);
+        } else {
+          scrollToCard4(0);
+        }
+        resetGlobalAutoSlide();
+      });
+      
+      // Handle scroll events to update indicators for fourth gallery
+      gallery4.addEventListener('scroll', () => {
+        const cardWidth = cards4[0].offsetWidth + 20;
+        const scrollPosition = gallery4.scrollLeft;
+        currentIndex4 = Math.round(scrollPosition / cardWidth);
+        galleries[3].currentIndex = currentIndex4;
+        updateIndicators4();
+      });
+      
+      // Pause auto slide on hover for fourth gallery
+      gallery4.addEventListener('mouseenter', () => {
+        clearInterval(globalAutoSlideInterval);
+      });
+      
+      gallery4.addEventListener('mouseleave', () => {
+        startGlobalAutoSlide();
+      });
+      
+      // Initialize fourth gallery
+      updateIndicators4();
+      
+      // Start global synchronized auto-slide after all galleries are initialized
+      setTimeout(() => {
+        startGlobalAutoSlide();
+      }, 100);
+    });
+
+    // Fifth Gallery JavaScript
+    document.addEventListener('DOMContentLoaded', function() {
+      const gallery5 = document.getElementById('gallery5');
+      const prevBtn5 = document.getElementById('prevBtn5');
+      const nextBtn5 = document.getElementById('nextBtn5');
+      const indicatorsContainer5 = document.getElementById('indicators5');
+      const cards5 = document.querySelectorAll('#gallery5 .photo-card');
+      let currentIndex5 = 0;
+      
+      galleries.push({
+        element: gallery5,
+        cards: cards5,
+        currentIndex: 0,
+        indicators: null,
+        scrollToCard: null,
+        updateIndicators: null
+      });
+      
+      cards5.forEach((_, index) => {
+        const indicator = document.createElement('div');
+        indicator.classList.add('indicator');
+        if (index === 0) indicator.classList.add('active');
+        indicator.addEventListener('click', () => {
+          scrollToCard5(index);
+          resetGlobalAutoSlide();
+        });
+        indicatorsContainer5.appendChild(indicator);
+      });
+      
+      const indicators5 = document.querySelectorAll('#indicators5 .indicator');
+      galleries[4].indicators = indicators5;
+      
+      function scrollToCard5(index) {
+        currentIndex5 = index;
+        galleries[4].currentIndex = index;
+        const cardWidth = cards5[0].offsetWidth + 20;
+        gallery5.scrollTo({
+          left: index * cardWidth,
+          behavior: 'smooth'
+        });
+        updateIndicators5();
+      }
+      
+      galleries[4].scrollToCard = scrollToCard5;
+      
+      function updateIndicators5() {
+        indicators5.forEach((indicator, index) => {
+          if (index === currentIndex5) {
+            indicator.classList.add('active');
+          } else {
+            indicator.classList.remove('active');
+          }
+        });
+      }
+      
+      galleries[4].updateIndicators = updateIndicators5;
+      
+      prevBtn5.addEventListener('click', () => {
+        if (currentIndex5 > 0) {
+          scrollToCard5(currentIndex5 - 1);
+        } else {
+          scrollToCard5(cards5.length - 1);
+        }
+        resetGlobalAutoSlide();
+      });
+      
+      nextBtn5.addEventListener('click', () => {
+        if (currentIndex5 < cards5.length - 1) {
+          scrollToCard5(currentIndex5 + 1);
+        } else {
+          scrollToCard5(0);
+        }
+        resetGlobalAutoSlide();
+      });
+      
+      gallery5.addEventListener('scroll', () => {
+        const cardWidth = cards5[0].offsetWidth + 20;
+        const scrollPosition = gallery5.scrollLeft;
+        currentIndex5 = Math.round(scrollPosition / cardWidth);
+        galleries[4].currentIndex = currentIndex5;
+        updateIndicators5();
+      });
+      
+      gallery5.addEventListener('mouseenter', () => {
+        clearInterval(globalAutoSlideInterval);
+      });
+      
+      gallery5.addEventListener('mouseleave', () => {
+        startGlobalAutoSlide();
+      });
+      
+      updateIndicators5();
+    });
+
+    // Sixth Gallery JavaScript
+    document.addEventListener('DOMContentLoaded', function() {
+      const gallery6 = document.getElementById('gallery6');
+      const prevBtn6 = document.getElementById('prevBtn6');
+      const nextBtn6 = document.getElementById('nextBtn6');
+      const indicatorsContainer6 = document.getElementById('indicators6');
+      const cards6 = document.querySelectorAll('#gallery6 .photo-card');
+      let currentIndex6 = 0;
+      
+      galleries.push({
+        element: gallery6,
+        cards: cards6,
+        currentIndex: 0,
+        indicators: null,
+        scrollToCard: null,
+        updateIndicators: null
+      });
+      
+      cards6.forEach((_, index) => {
+        const indicator = document.createElement('div');
+        indicator.classList.add('indicator');
+        if (index === 0) indicator.classList.add('active');
+        indicator.addEventListener('click', () => {
+          scrollToCard6(index);
+          resetGlobalAutoSlide();
+        });
+        indicatorsContainer6.appendChild(indicator);
+      });
+      
+      const indicators6 = document.querySelectorAll('#indicators6 .indicator');
+      galleries[5].indicators = indicators6;
+      
+      function scrollToCard6(index) {
+        currentIndex6 = index;
+        galleries[5].currentIndex = index;
+        const cardWidth = cards6[0].offsetWidth + 20;
+        gallery6.scrollTo({
+          left: index * cardWidth,
+          behavior: 'smooth'
+        });
+        updateIndicators6();
+      }
+      
+      galleries[5].scrollToCard = scrollToCard6;
+      
+      function updateIndicators6() {
+        indicators6.forEach((indicator, index) => {
+          if (index === currentIndex6) {
+            indicator.classList.add('active');
+          } else {
+            indicator.classList.remove('active');
+          }
+        });
+      }
+      
+      galleries[5].updateIndicators = updateIndicators6;
+      
+      prevBtn6.addEventListener('click', () => {
+        if (currentIndex6 > 0) {
+          scrollToCard6(currentIndex6 - 1);
+        } else {
+          scrollToCard6(cards6.length - 1);
+        }
+        resetGlobalAutoSlide();
+      });
+      
+      nextBtn6.addEventListener('click', () => {
+        if (currentIndex6 < cards6.length - 1) {
+          scrollToCard6(currentIndex6 + 1);
+        } else {
+          scrollToCard6(0);
+        }
+        resetGlobalAutoSlide();
+      });
+      
+      gallery6.addEventListener('scroll', () => {
+        const cardWidth = cards6[0].offsetWidth + 20;
+        const scrollPosition = gallery6.scrollLeft;
+        currentIndex6 = Math.round(scrollPosition / cardWidth);
+        galleries[5].currentIndex = currentIndex6;
+        updateIndicators6();
+      });
+      
+      gallery6.addEventListener('mouseenter', () => {
+        clearInterval(globalAutoSlideInterval);
+      });
+      
+      gallery6.addEventListener('mouseleave', () => {
+        startGlobalAutoSlide();
+      });
+      
+      updateIndicators6();
+    });
+
+    // Seventh Gallery JavaScript
+    document.addEventListener('DOMContentLoaded', function() {
+      const gallery7 = document.getElementById('gallery7');
+      const prevBtn7 = document.getElementById('prevBtn7');
+      const nextBtn7 = document.getElementById('nextBtn7');
+      const indicatorsContainer7 = document.getElementById('indicators7');
+      const cards7 = document.querySelectorAll('#gallery7 .photo-card');
+      let currentIndex7 = 0;
+      
+      galleries.push({
+        element: gallery7,
+        cards: cards7,
+        currentIndex: 0,
+        indicators: null,
+        scrollToCard: null,
+        updateIndicators: null
+      });
+      
+      cards7.forEach((_, index) => {
+        const indicator = document.createElement('div');
+        indicator.classList.add('indicator');
+        if (index === 0) indicator.classList.add('active');
+        indicator.addEventListener('click', () => {
+          scrollToCard7(index);
+          resetGlobalAutoSlide();
+        });
+        indicatorsContainer7.appendChild(indicator);
+      });
+      
+      const indicators7 = document.querySelectorAll('#indicators7 .indicator');
+      galleries[6].indicators = indicators7;
+      
+      function scrollToCard7(index) {
+        currentIndex7 = index;
+        galleries[6].currentIndex = index;
+        const cardWidth = cards7[0].offsetWidth + 20;
+        gallery7.scrollTo({
+          left: index * cardWidth,
+          behavior: 'smooth'
+        });
+        updateIndicators7();
+      }
+      
+      galleries[6].scrollToCard = scrollToCard7;
+      
+      function updateIndicators7() {
+        indicators7.forEach((indicator, index) => {
+          if (index === currentIndex7) {
+            indicator.classList.add('active');
+          } else {
+            indicator.classList.remove('active');
+          }
+        });
+      }
+      
+      galleries[6].updateIndicators = updateIndicators7;
+      
+      prevBtn7.addEventListener('click', () => {
+        if (currentIndex7 > 0) {
+          scrollToCard7(currentIndex7 - 1);
+        } else {
+          scrollToCard7(cards7.length - 1);
+        }
+        resetGlobalAutoSlide();
+      });
+      
+      nextBtn7.addEventListener('click', () => {
+        if (currentIndex7 < cards7.length - 1) {
+          scrollToCard7(currentIndex7 + 1);
+        } else {
+          scrollToCard7(0);
+        }
+        resetGlobalAutoSlide();
+      });
+      
+      gallery7.addEventListener('scroll', () => {
+        const cardWidth = cards7[0].offsetWidth + 20;
+        const scrollPosition = gallery7.scrollLeft;
+        currentIndex7 = Math.round(scrollPosition / cardWidth);
+        galleries[6].currentIndex = currentIndex7;
+        updateIndicators7();
+      });
+      
+      gallery7.addEventListener('mouseenter', () => {
+        clearInterval(globalAutoSlideInterval);
+      });
+      
+      gallery7.addEventListener('mouseleave', () => {
+        startGlobalAutoSlide();
+      });
+      
+      updateIndicators7();
+    });
+
+    // Eighth Gallery JavaScript
+    document.addEventListener('DOMContentLoaded', function() {
+      const gallery8 = document.getElementById('gallery8');
+      const prevBtn8 = document.getElementById('prevBtn8');
+      const nextBtn8 = document.getElementById('nextBtn8');
+      const indicatorsContainer8 = document.getElementById('indicators8');
+      const cards8 = document.querySelectorAll('#gallery8 .photo-card');
+      let currentIndex8 = 0;
+      
+      galleries.push({
+        element: gallery8,
+        cards: cards8,
+        currentIndex: 0,
+        indicators: null,
+        scrollToCard: null,
+        updateIndicators: null
+      });
+      
+      cards8.forEach((_, index) => {
+        const indicator = document.createElement('div');
+        indicator.classList.add('indicator');
+        if (index === 0) indicator.classList.add('active');
+        indicator.addEventListener('click', () => {
+          scrollToCard8(index);
+          resetGlobalAutoSlide();
+        });
+        indicatorsContainer8.appendChild(indicator);
+      });
+      
+      const indicators8 = document.querySelectorAll('#indicators8 .indicator');
+      galleries[7].indicators = indicators8;
+      
+      function scrollToCard8(index) {
+        currentIndex8 = index;
+        galleries[7].currentIndex = index;
+        const cardWidth = cards8[0].offsetWidth + 20;
+        gallery8.scrollTo({
+          left: index * cardWidth,
+          behavior: 'smooth'
+        });
+        updateIndicators8();
+      }
+      
+      galleries[7].scrollToCard = scrollToCard8;
+      
+      function updateIndicators8() {
+        indicators8.forEach((indicator, index) => {
+          if (index === currentIndex8) {
+            indicator.classList.add('active');
+          } else {
+            indicator.classList.remove('active');
+          }
+        });
+      }
+      
+      galleries[7].updateIndicators = updateIndicators8;
+      
+      prevBtn8.addEventListener('click', () => {
+        if (currentIndex8 > 0) {
+          scrollToCard8(currentIndex8 - 1);
+        } else {
+          scrollToCard8(cards8.length - 1);
+        }
+        resetGlobalAutoSlide();
+      });
+      
+      nextBtn8.addEventListener('click', () => {
+        if (currentIndex8 < cards8.length - 1) {
+          scrollToCard8(currentIndex8 + 1);
+        } else {
+          scrollToCard8(0);
+        }
+        resetGlobalAutoSlide();
+      });
+      
+      gallery8.addEventListener('scroll', () => {
+        const cardWidth = cards8[0].offsetWidth + 20;
+        const scrollPosition = gallery8.scrollLeft;
+        currentIndex8 = Math.round(scrollPosition / cardWidth);
+        galleries[7].currentIndex = currentIndex8;
+        updateIndicators8();
+      });
+      
+      gallery8.addEventListener('mouseenter', () => {
+        clearInterval(globalAutoSlideInterval);
+      });
+      
+      gallery8.addEventListener('mouseleave', () => {
+        startGlobalAutoSlide();
+      });
+      
+      updateIndicators8();
+    });
+
+    // Ninth Gallery JavaScript
+    document.addEventListener('DOMContentLoaded', function() {
+      const gallery9 = document.getElementById('gallery9');
+      const prevBtn9 = document.getElementById('prevBtn9');
+      const nextBtn9 = document.getElementById('nextBtn9');
+      const indicatorsContainer9 = document.getElementById('indicators9');
+      const cards9 = document.querySelectorAll('#gallery9 .photo-card');
+      let currentIndex9 = 0;
+      
+      galleries.push({
+        element: gallery9,
+        cards: cards9,
+        currentIndex: 0,
+        indicators: null,
+        scrollToCard: null,
+        updateIndicators: null
+      });
+      
+      cards9.forEach((_, index) => {
+        const indicator = document.createElement('div');
+        indicator.classList.add('indicator');
+        if (index === 0) indicator.classList.add('active');
+        indicator.addEventListener('click', () => {
+          scrollToCard9(index);
+          resetGlobalAutoSlide();
+        });
+        indicatorsContainer9.appendChild(indicator);
+      });
+      
+      const indicators9 = document.querySelectorAll('#indicators9 .indicator');
+      galleries[8].indicators = indicators9;
+      
+      function scrollToCard9(index) {
+        currentIndex9 = index;
+        galleries[8].currentIndex = index;
+        const cardWidth = cards9[0].offsetWidth + 20;
+        gallery9.scrollTo({
+          left: index * cardWidth,
+          behavior: 'smooth'
+        });
+        updateIndicators9();
+      }
+      
+      galleries[8].scrollToCard = scrollToCard9;
+      
+      function updateIndicators9() {
+        indicators9.forEach((indicator, index) => {
+          if (index === currentIndex9) {
+            indicator.classList.add('active');
+          } else {
+            indicator.classList.remove('active');
+          }
+        });
+      }
+      
+      galleries[8].updateIndicators = updateIndicators9;
+      
+      prevBtn9.addEventListener('click', () => {
+        if (currentIndex9 > 0) {
+          scrollToCard9(currentIndex9 - 1);
+        } else {
+          scrollToCard9(cards9.length - 1);
+        }
+        resetGlobalAutoSlide();
+      });
+      
+      nextBtn9.addEventListener('click', () => {
+        if (currentIndex9 < cards9.length - 1) {
+          scrollToCard9(currentIndex9 + 1);
+        } else {
+          scrollToCard9(0);
+        }
+        resetGlobalAutoSlide();
+      });
+      
+      gallery9.addEventListener('scroll', () => {
+        const cardWidth = cards9[0].offsetWidth + 20;
+        const scrollPosition = gallery9.scrollLeft;
+        currentIndex9 = Math.round(scrollPosition / cardWidth);
+        galleries[8].currentIndex = currentIndex9;
+        updateIndicators9();
+      });
+      
+      gallery9.addEventListener('mouseenter', () => {
+        clearInterval(globalAutoSlideInterval);
+      });
+      
+      gallery9.addEventListener('mouseleave', () => {
+        startGlobalAutoSlide();
+      });
+      
+      updateIndicators9();
+    });
+
+    // Tenth Gallery JavaScript
+    document.addEventListener('DOMContentLoaded', function() {
+      const gallery10 = document.getElementById('gallery10');
+      const prevBtn10 = document.getElementById('prevBtn10');
+      const nextBtn10 = document.getElementById('nextBtn10');
+      const indicatorsContainer10 = document.getElementById('indicators10');
+      const cards10 = document.querySelectorAll('#gallery10 .photo-card');
+      let currentIndex10 = 0;
+      
+      galleries.push({
+        element: gallery10,
+        cards: cards10,
+        currentIndex: 0,
+        indicators: null,
+        scrollToCard: null,
+        updateIndicators: null
+      });
+      
+      cards10.forEach((_, index) => {
+        const indicator = document.createElement('div');
+        indicator.classList.add('indicator');
+        if (index === 0) indicator.classList.add('active');
+        indicator.addEventListener('click', () => {
+          scrollToCard10(index);
+          resetGlobalAutoSlide();
+        });
+        indicatorsContainer10.appendChild(indicator);
+      });
+      
+      const indicators10 = document.querySelectorAll('#indicators10 .indicator');
+      galleries[9].indicators = indicators10;
+      
+      function scrollToCard10(index) {
+        currentIndex10 = index;
+        galleries[9].currentIndex = index;
+        const cardWidth = cards10[0].offsetWidth + 20;
+        gallery10.scrollTo({
+          left: index * cardWidth,
+          behavior: 'smooth'
+        });
+        updateIndicators10();
+      }
+      
+      galleries[9].scrollToCard = scrollToCard10;
+      
+      function updateIndicators10() {
+        indicators10.forEach((indicator, index) => {
+          if (index === currentIndex10) {
+            indicator.classList.add('active');
+          } else {
+            indicator.classList.remove('active');
+          }
+        });
+      }
+      
+      galleries[9].updateIndicators = updateIndicators10;
+      
+      prevBtn10.addEventListener('click', () => {
+        if (currentIndex10 > 0) {
+          scrollToCard10(currentIndex10 - 1);
+        } else {
+          scrollToCard10(cards10.length - 1);
+        }
+        resetGlobalAutoSlide();
+      });
+      
+      nextBtn10.addEventListener('click', () => {
+        if (currentIndex10 < cards10.length - 1) {
+          scrollToCard10(currentIndex10 + 1);
+        } else {
+          scrollToCard10(0);
+        }
+        resetGlobalAutoSlide();
+      });
+      
+      gallery10.addEventListener('scroll', () => {
+        const cardWidth = cards10[0].offsetWidth + 20;
+        const scrollPosition = gallery10.scrollLeft;
+        currentIndex10 = Math.round(scrollPosition / cardWidth);
+        galleries[9].currentIndex = currentIndex10;
+        updateIndicators10();
+      });
+      
+      gallery10.addEventListener('mouseenter', () => {
+        clearInterval(globalAutoSlideInterval);
+      });
+      
+      gallery10.addEventListener('mouseleave', () => {
+        startGlobalAutoSlide();
+      });
+      
+      updateIndicators10();
+    });
+
+    // Eleventh Gallery JavaScript
+    document.addEventListener('DOMContentLoaded', function() {
+      const gallery11 = document.getElementById('gallery11');
+      const prevBtn11 = document.getElementById('prevBtn11');
+      const nextBtn11 = document.getElementById('nextBtn11');
+      const indicatorsContainer11 = document.getElementById('indicators11');
+      const cards11 = document.querySelectorAll('#gallery11 .photo-card');
+      let currentIndex11 = 0;
+      
+      galleries.push({
+        element: gallery11,
+        cards: cards11,
+        currentIndex: 0,
+        indicators: null,
+        scrollToCard: null,
+        updateIndicators: null
+      });
+      
+      cards11.forEach((_, index) => {
+        const indicator = document.createElement('div');
+        indicator.classList.add('indicator');
+        if (index === 0) indicator.classList.add('active');
+        indicator.addEventListener('click', () => {
+          scrollToCard11(index);
+          resetGlobalAutoSlide();
+        });
+        indicatorsContainer11.appendChild(indicator);
+      });
+      
+      const indicators11 = document.querySelectorAll('#indicators11 .indicator');
+      galleries[10].indicators = indicators11;
+      
+      function scrollToCard11(index) {
+        currentIndex11 = index;
+        galleries[10].currentIndex = index;
+        const cardWidth = cards11[0].offsetWidth + 20;
+        gallery11.scrollTo({
+          left: index * cardWidth,
+          behavior: 'smooth'
+        });
+        updateIndicators11();
+      }
+      
+      galleries[10].scrollToCard = scrollToCard11;
+      
+      function updateIndicators11() {
+        indicators11.forEach((indicator, index) => {
+          if (index === currentIndex11) {
+            indicator.classList.add('active');
+          } else {
+            indicator.classList.remove('active');
+          }
+        });
+      }
+      
+      galleries[10].updateIndicators = updateIndicators11;
+      
+      prevBtn11.addEventListener('click', () => {
+        if (currentIndex11 > 0) {
+          scrollToCard11(currentIndex11 - 1);
+        } else {
+          scrollToCard11(cards11.length - 1);
+        }
+        resetGlobalAutoSlide();
+      });
+      
+      nextBtn11.addEventListener('click', () => {
+        if (currentIndex11 < cards11.length - 1) {
+          scrollToCard11(currentIndex11 + 1);
+        } else {
+          scrollToCard11(0);
+        }
+        resetGlobalAutoSlide();
+      });
+      
+      gallery11.addEventListener('scroll', () => {
+        const cardWidth = cards11[0].offsetWidth + 20;
+        const scrollPosition = gallery11.scrollLeft;
+        currentIndex11 = Math.round(scrollPosition / cardWidth);
+        galleries[10].currentIndex = currentIndex11;
+        updateIndicators11();
+      });
+      
+      gallery11.addEventListener('mouseenter', () => {
+        clearInterval(globalAutoSlideInterval);
+      });
+      
+      gallery11.addEventListener('mouseleave', () => {
+        startGlobalAutoSlide();
+      });
+      
+      updateIndicators11();
+    });
+
+    // Twelfth Gallery JavaScript
+    document.addEventListener('DOMContentLoaded', function() {
+      const gallery12 = document.getElementById('gallery12');
+      const prevBtn12 = document.getElementById('prevBtn12');
+      const nextBtn12 = document.getElementById('nextBtn12');
+      const indicatorsContainer12 = document.getElementById('indicators12');
+      const cards12 = document.querySelectorAll('#gallery12 .photo-card');
+      let currentIndex12 = 0;
+      
+      galleries.push({
+        element: gallery12,
+        cards: cards12,
+        currentIndex: 0,
+        indicators: null,
+        scrollToCard: null,
+        updateIndicators: null
+      });
+      
+      cards12.forEach((_, index) => {
+        const indicator = document.createElement('div');
+        indicator.classList.add('indicator');
+        if (index === 0) indicator.classList.add('active');
+        indicator.addEventListener('click', () => {
+          scrollToCard12(index);
+          resetGlobalAutoSlide();
+        });
+        indicatorsContainer12.appendChild(indicator);
+      });
+      
+      const indicators12 = document.querySelectorAll('#indicators12 .indicator');
+      galleries[11].indicators = indicators12;
+      
+      function scrollToCard12(index) {
+        currentIndex12 = index;
+        galleries[11].currentIndex = index;
+        const cardWidth = cards12[0].offsetWidth + 20;
+        gallery12.scrollTo({
+          left: index * cardWidth,
+          behavior: 'smooth'
+        });
+        updateIndicators12();
+      }
+      
+      galleries[11].scrollToCard = scrollToCard12;
+      
+      function updateIndicators12() {
+        indicators12.forEach((indicator, index) => {
+          if (index === currentIndex12) {
+            indicator.classList.add('active');
+          } else {
+            indicator.classList.remove('active');
+          }
+        });
+      }
+      
+      galleries[11].updateIndicators = updateIndicators12;
+      
+      prevBtn12.addEventListener('click', () => {
+        if (currentIndex12 > 0) {
+          scrollToCard12(currentIndex12 - 1);
+        } else {
+          scrollToCard12(cards12.length - 1);
+        }
+        resetGlobalAutoSlide();
+      });
+      
+      nextBtn12.addEventListener('click', () => {
+        if (currentIndex12 < cards12.length - 1) {
+          scrollToCard12(currentIndex12 + 1);
+        } else {
+          scrollToCard12(0);
+        }
+        resetGlobalAutoSlide();
+      });
+      
+      gallery12.addEventListener('scroll', () => {
+        const cardWidth = cards12[0].offsetWidth + 20;
+        const scrollPosition = gallery12.scrollLeft;
+        currentIndex12 = Math.round(scrollPosition / cardWidth);
+        galleries[11].currentIndex = currentIndex12;
+        updateIndicators12();
+      });
+      
+      gallery12.addEventListener('mouseenter', () => {
+        clearInterval(globalAutoSlideInterval);
+      });
+      
+      gallery12.addEventListener('mouseleave', () => {
+        startGlobalAutoSlide();
+      });
+      
+      updateIndicators12();
+    });
+
+    // Thirteenth Gallery JavaScript
+    document.addEventListener('DOMContentLoaded', function() {
+      const gallery13 = document.getElementById('gallery13');
+      const prevBtn13 = document.getElementById('prevBtn13');
+      const nextBtn13 = document.getElementById('nextBtn13');
+      const indicatorsContainer13 = document.getElementById('indicators13');
+      const cards13 = document.querySelectorAll('#gallery13 .photo-card');
+      let currentIndex13 = 0;
+      
+      galleries.push({
+        element: gallery13,
+        cards: cards13,
+        currentIndex: 0,
+        indicators: null,
+        scrollToCard: null,
+        updateIndicators: null
+      });
+      
+      cards13.forEach((_, index) => {
+        const indicator = document.createElement('div');
+        indicator.classList.add('indicator');
+        if (index === 0) indicator.classList.add('active');
+        indicator.addEventListener('click', () => {
+          scrollToCard13(index);
+          resetGlobalAutoSlide();
+        });
+        indicatorsContainer13.appendChild(indicator);
+      });
+      
+      const indicators13 = document.querySelectorAll('#indicators13 .indicator');
+      galleries[12].indicators = indicators13;
+      
+      function scrollToCard13(index) {
+        currentIndex13 = index;
+        galleries[12].currentIndex = index;
+        const cardWidth = cards13[0].offsetWidth + 20;
+        gallery13.scrollTo({
+          left: index * cardWidth,
+          behavior: 'smooth'
+        });
+        updateIndicators13();
+      }
+      
+      galleries[12].scrollToCard = scrollToCard13;
+      
+      function updateIndicators13() {
+        indicators13.forEach((indicator, index) => {
+          if (index === currentIndex13) {
+            indicator.classList.add('active');
+          } else {
+            indicator.classList.remove('active');
+          }
+        });
+      }
+      
+      galleries[12].updateIndicators = updateIndicators13;
+      
+      prevBtn13.addEventListener('click', () => {
+        if (currentIndex13 > 0) {
+          scrollToCard13(currentIndex13 - 1);
+        } else {
+          scrollToCard13(cards13.length - 1);
+        }
+        resetGlobalAutoSlide();
+      });
+      
+      nextBtn13.addEventListener('click', () => {
+        if (currentIndex13 < cards13.length - 1) {
+          scrollToCard13(currentIndex13 + 1);
+        } else {
+          scrollToCard13(0);
+        }
+        resetGlobalAutoSlide();
+      });
+      
+      gallery13.addEventListener('scroll', () => {
+        const cardWidth = cards13[0].offsetWidth + 20;
+        const scrollPosition = gallery13.scrollLeft;
+        currentIndex13 = Math.round(scrollPosition / cardWidth);
+        galleries[12].currentIndex = currentIndex13;
+        updateIndicators13();
+      });
+      
+      gallery13.addEventListener('mouseenter', () => {
+        clearInterval(globalAutoSlideInterval);
+      });
+      
+      gallery13.addEventListener('mouseleave', () => {
+        startGlobalAutoSlide();
+      });
+      
+      updateIndicators13();
+    });
+
+    // Fourteenth Gallery JavaScript
+    document.addEventListener('DOMContentLoaded', function() {
+      const gallery14 = document.getElementById('gallery14');
+      const prevBtn14 = document.getElementById('prevBtn14');
+      const nextBtn14 = document.getElementById('nextBtn14');
+      const indicatorsContainer14 = document.getElementById('indicators14');
+      const cards14 = document.querySelectorAll('#gallery14 .photo-card');
+      let currentIndex14 = 0;
+      
+      galleries.push({
+        element: gallery14,
+        cards: cards14,
+        currentIndex: 0,
+        indicators: null,
+        scrollToCard: null,
+        updateIndicators: null
+      });
+      
+      cards14.forEach((_, index) => {
+        const indicator = document.createElement('div');
+        indicator.classList.add('indicator');
+        if (index === 0) indicator.classList.add('active');
+        indicator.addEventListener('click', () => {
+          scrollToCard14(index);
+          resetGlobalAutoSlide();
+        });
+        indicatorsContainer14.appendChild(indicator);
+      });
+      
+      const indicators14 = document.querySelectorAll('#indicators14 .indicator');
+      galleries[13].indicators = indicators14;
+      
+      function scrollToCard14(index) {
+        currentIndex14 = index;
+        galleries[13].currentIndex = index;
+        const cardWidth = cards14[0].offsetWidth + 20;
+        gallery14.scrollTo({
+          left: index * cardWidth,
+          behavior: 'smooth'
+        });
+        updateIndicators14();
+      }
+      
+      galleries[13].scrollToCard = scrollToCard14;
+      
+      function updateIndicators14() {
+        indicators14.forEach((indicator, index) => {
+          if (index === currentIndex14) {
+            indicator.classList.add('active');
+          } else {
+            indicator.classList.remove('active');
+          }
+        });
+      }
+      
+      galleries[13].updateIndicators = updateIndicators14;
+      
+      prevBtn14.addEventListener('click', () => {
+        if (currentIndex14 > 0) {
+          scrollToCard14(currentIndex14 - 1);
+        } else {
+          scrollToCard14(cards14.length - 1);
+        }
+        resetGlobalAutoSlide();
+      });
+      
+      nextBtn14.addEventListener('click', () => {
+        if (currentIndex14 < cards14.length - 1) {
+          scrollToCard14(currentIndex14 + 1);
+        } else {
+          scrollToCard14(0);
+        }
+        resetGlobalAutoSlide();
+      });
+      
+      gallery14.addEventListener('scroll', () => {
+        const cardWidth = cards14[0].offsetWidth + 20;
+        const scrollPosition = gallery14.scrollLeft;
+        currentIndex14 = Math.round(scrollPosition / cardWidth);
+        galleries[13].currentIndex = currentIndex14;
+        updateIndicators14();
+      });
+      
+      gallery14.addEventListener('mouseenter', () => {
+        clearInterval(globalAutoSlideInterval);
+      });
+      
+      gallery14.addEventListener('mouseleave', () => {
+        startGlobalAutoSlide();
+      });
+      
+      updateIndicators14();
+    });
+    
+    // Global synchronized auto-slide functions
+    function globalAutoSlide() {
+      galleries.forEach(gallery => {
+        if (gallery.scrollToCard && gallery.cards) {
+          const nextIndex = (gallery.currentIndex + 1) % gallery.cards.length;
+          gallery.scrollToCard(nextIndex);
+        }
+      });
+    }
+    
+    function startGlobalAutoSlide() {
+      globalAutoSlideInterval = setInterval(globalAutoSlide, 500); // 0.5 seconds - faster timing
+    }
+    
+    function resetGlobalAutoSlide() {
+      clearInterval(globalAutoSlideInterval);
+      startGlobalAutoSlide();
+    }
   </script>
 </body>
 </html>
