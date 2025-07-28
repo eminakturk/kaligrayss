@@ -1,476 +1,514 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-  <title>Responsive Photo Gallery with Diagonal Background</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Photo Gallery with WhatsApp</title>
   <style>
-    body {
+    * {
       margin: 0;
-      background-color: white;
-      overflow-x: hidden;
-      position: relative;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+      color: #fff;
       min-height: 100vh;
-      font-family: Arial, sans-serif;
-      color: #333;
+      padding: 20px;
+      overflow-x: hidden;
     }
-
-    .diagonal-gray {
-      position: fixed;
-      width: 150vw;
-      height: 150vh;
-      background: #1e1e1e;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) rotate(45deg);
-      box-shadow: 0 0 30px rgba(0,0,0,0.1);
-      z-index: -1;
-    }
-
-    .gallery-wrapper {
-      position: relative;
-      max-width: 900px;
+    
+    .container {
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 0 10px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      z-index: 10;
-      color: white;
+      padding: 20px;
     }
-
-    .gallery-title {
-      width: 100%;
-      max-width: 900px;
-      margin: 0 0 20px 0;
-      font-size: 28px;
-      font-weight: bold;
+    
+    header {
       text-align: center;
-      user-select: none;
+      padding: 30px 0;
+      margin-bottom: 30px;
+      position: relative;
     }
-
-    .devil-horn {
+    
+    .logo {
       width: 100px;
       height: 100px;
-      object-fit: contain;
-      margin-bottom: 230px;
+      background: #ffc107;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 40px;
+      color: #1a2a6c;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     }
-
+    
+    h1 {
+      font-size: 2.8rem;
+      margin-bottom: 15px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    
+    .subtitle {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
     .gallery-container {
       position: relative;
+      margin: 40px auto;
+      max-width: 1100px;
+      padding: 20px 0;
+    }
+    
+    .swipe-instruction {
+      text-align: right;
+      padding: 10px 15px;
+      margin-bottom: 15px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 30px;
+      display: inline-block;
+      position: absolute;
+      top: -50px;
+      right: 10px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      backdrop-filter: blur(5px);
+    }
+    
+    .gallery-wrapper {
+      position: relative;
       display: flex;
       align-items: center;
-      overflow: visible;
-      padding-top: 80px;
-      background: transparent;
-      width: 100%;
+      justify-content: center;
     }
-
+    
     .gallery {
       display: flex;
-      transition: transform 0.5s ease;
-      will-change: transform;
-      overflow: visible;
-      position: relative;
-      width: 100%;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      padding: 20px 0;
+      scrollbar-width: none;
+      gap: 20px;
     }
-
-    .photo-wrapper {
-      position: relative;
-      width: 175px;
-      height: 300px;
-      margin-right: 20px;
-      flex-shrink: 0;
+    
+    .gallery::-webkit-scrollbar {
+      display: none;
+    }
+    
+    .photo-card {
+      scroll-snap-align: start;
+      min-width: 280px;
+      background: rgba(255, 255, 255, 0.1);
       border-radius: 20px;
-      overflow: visible;
-      cursor: pointer;
-      z-index: 1;
+      overflow: hidden;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      transition: transform 0.3s ease;
+      backdrop-filter: blur(10px);
       display: flex;
       flex-direction: column;
-      align-items: center;
-      background: transparent;
-      transition: width 0.5s ease, height 0.5s ease, z-index 0.3s ease;
     }
-
-    .photo-wrapper:hover {
-      width: 300px;
-      height: 470px;
-      z-index: 30;
+    
+    .photo-card:hover {
+      transform: translateY(-10px);
     }
-
-    .photo-wrapper img {
-      width: 175px;
-      height: 150px;
+    
+    .photo-img {
+      width: 100%;
+      height: 200px;
       object-fit: cover;
-      border-radius: 20px;
-      transition: width 0.5s ease, height 0.5s ease;
-      display: block;
-      will-change: width, height;
-      user-select: none;
+      border-bottom: 3px solid #ffc107;
     }
-
-    .photo-wrapper:hover img {
-      width: 300px;
-      height: 300px;
-    }
-
-    .info {
-      margin-top: 10px;
-      width: 175px;
-      height: 140px;
-      background-color: rgba(255, 253, 208, 0.95);
-      color: #333;
-      padding: 15px;
-      border-radius: 15px;
-      box-sizing: border-box;
-      text-align: center;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
-      opacity: 0;
-      pointer-events: none;
-      overflow-y: auto;
-      transition: opacity 0.3s ease, width 0.5s ease, height 0.5s ease;
-      user-select: text;
+    
+    .photo-info {
+      padding: 20px;
+      flex-grow: 1;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
     }
-
-    .photo-wrapper:hover .info,
-    .photo-wrapper .info:hover {
-      opacity: 1;
-      pointer-events: auto;
-      width: 300px;
-      height: 160px;
+    
+    .photo-title {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+      color: #ffc107;
     }
-
-    .whatsapp-link {
-      margin-top: 10px;
-      padding: 8px 10px;
-      width: 100%;
-      box-sizing: border-box;
-      background-color: #444;
+    
+    .photo-desc {
+      margin-bottom: 20px;
+      line-height: 1.5;
+      flex-grow: 1;
+    }
+    
+    .whatsapp-btn {
+      display: block;
+      text-align: center;
+      background: #25D366;
       color: white;
       text-decoration: none;
+      padding: 12px;
       border-radius: 10px;
-      transition: background-color 0.3s ease, transform 0.3s ease;
-      text-align: center;
-      user-select: none;
-      align-self: stretch;
       font-weight: bold;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
     }
-
-    .whatsapp-link:hover {
-      background-color: #666;
-      transform: scale(1.05);
+    
+    .whatsapp-btn:hover {
+      background: #128C7E;
+      transform: scale(1.03);
     }
-
+    
+    .whatsapp-btn i {
+      font-size: 1.2rem;
+    }
+    
     .arrow {
-      background-color: #444;
-      color: white;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 50px;
+      height: 50px;
+      background: rgba(255, 255, 255, 0.2);
       border: none;
-      padding: 10px;
-      font-size: 20px;
-      cursor: pointer;
-      border-radius: 10px;
-      z-index: 50;
-      position: absolute;
-      user-select: none;
-      top: -50px;
-      transition: background-color 0.3s ease;
-    }
-
-    .arrow:hover {
-      background-color: #666;
-    }
-
-    .arrow.left {
-      left: 0;
-    }
-
-    .arrow.right {
-      right: 0;
-    }
-
-    .mobile-swipe-text {
-      display: none;
-      position: absolute;
-      right: 0;
-      top: -50px;
+      border-radius: 50%;
       color: white;
-      font-weight: bold;
-      user-select: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(5px);
     }
-
-    /* --- Responsive & Mobile Adjustments --- */
-    @media (max-width: 950px) {
-      .photo-wrapper {
-        width: 300px !important;
-        height: 470px !important;
-        margin-right: 15px;
-        cursor: default;
-        transition: none !important;
-        z-index: 1 !important;
-      }
-
-      .photo-wrapper img {
-        width: 300px !important;
-        height: 300px !important;
-        border-radius: 20px;
-        transition: none !important;
-      }
-
-      .info {
-        opacity: 1 !important;
-        pointer-events: auto !important;
-        width: 300px !important;
-        height: 160px !important;
-        margin-top: 10px;
-        font-size: 14px;
-        padding: 15px;
-      }
+    
+    .arrow:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateY(-50%) scale(1.1);
     }
-
-    @media (max-width: 500px) {
-      .devil-horn {
-        width: 70px;
-        height: 70px;
-        margin-bottom: 100px;
+    
+    .arrow-left {
+      left: -25px;
+    }
+    
+    .arrow-right {
+      right: -25px;
+    }
+    
+    .gallery-indicators {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    
+    .indicator {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    
+    .indicator.active {
+      background: #ffc107;
+    }
+    
+    footer {
+      text-align: center;
+      padding: 30px 0;
+      margin-top: 40px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .contact-info {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 20px;
+    }
+    
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 1.1rem;
+    }
+    
+    /* Responsive design */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.2rem;
       }
-
-      .gallery-title {
-        font-size: 20px;
+      
+      .subtitle {
+        font-size: 1rem;
       }
-
-      .gallery-container {
-        width: 320px;
-        overflow: hidden;
-        margin: 0 auto;
+      
+      .swipe-instruction {
+        top: -40px;
+        right: 0;
+        font-size: 0.9rem;
       }
-
-      .gallery {
-        width: max-content;
-        transition: transform 0.5s ease;
+      
+      .photo-card {
+        min-width: 260px;
       }
-
-      .photo-wrapper {
-        width: 300px !important;
-        height: 470px !important;
-        margin-right: 20px;
-        cursor: default;
-        transition: none !important;
-        z-index: 1 !important;
-      }
-
-      .photo-wrapper img {
-        width: 300px !important;
-        height: 300px !important;
-        border-radius: 20px;
-        transition: none !important;
-      }
-
-      .info {
-        opacity: 1 !important;
-        pointer-events: auto !important;
-        width: 300px !important;
-        height: 160px !important;
-        margin-top: 10px;
-        font-size: 14px;
-        padding: 15px;
-      }
-
-      .mobile-swipe-text {
-        display: block;
-      }
-
+      
       .arrow {
-        padding: 8px;
-        font-size: 18px;
-        top: -80px;
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+      }
+      
+      .arrow-left {
+        left: -15px;
+      }
+      
+      .arrow-right {
+        right: -15px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+      
+      .logo {
+        width: 80px;
+        height: 80px;
+        font-size: 30px;
+      }
+      
+      .gallery {
+        gap: 15px;
+      }
+      
+      .photo-card {
+        min-width: 240px;
+      }
+      
+      .photo-img {
+        height: 180px;
+      }
+      
+      .photo-info {
+        padding: 15px;
+      }
+      
+      .contact-info {
+        flex-direction: column;
+        gap: 15px;
       }
     }
   </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-  <div class="diagonal-gray"></div>
-
-  <div class="gallery-wrapper">
-    <h1 class="gallery-title">Lorem Ipsum</h1>
-
-    <img src="devil-horn.png" alt="Devil Horn" class="devil-horn" />
-
-    <div class="gallery-container" tabindex="0">
-      <button class="arrow left" onclick="scrollGallery(-1)" aria-label="Previous photos">&#8592;</button>
-      <div class="mobile-swipe-text">Kaydır</div>
-      <div class="gallery" id="gallery">
-        <div class="photo-wrapper">
-          <img src="photo1.jpg" alt="" />
-          <div class="info">
-            <div>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+  <div class="container">
+    <header>
+      <div class="logo">
+        <i class="fas fa-camera"></i>
+      </div>
+      <h1>Photo Gallery</h1>
+      <p class="subtitle">Explore our collection of premium photography services</p>
+    </header>
+    
+    <div class="gallery-container">
+      <div class="swipe-instruction">Kaydır</div>
+      
+      <div class="gallery-wrapper">
+        <button class="arrow arrow-left" id="prevBtn">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        
+        <div class="gallery" id="gallery">
+          <!-- Card 1 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Nature" class="photo-img">
+            <div class="photo-info">
+              <h3 class="photo-title">Nature Photography</h3>
+              <p class="photo-desc">Capture the breathtaking beauty of natural landscapes with our expert photography services.</p>
+              <a href="https://wa.me/1234567890" class="whatsapp-btn">
+                <i class="fab fa-whatsapp"></i> 1234 567 890
+              </a>
             </div>
-            <a href="https://wa.me/1234567890" target="_blank" class="whatsapp-link">1234 567 890</a>
+          </div>
+          
+          <!-- Card 2 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Food" class="photo-img">
+            <div class="photo-info">
+              <h3 class="photo-title">Food Photography</h3>
+              <p class="photo-desc">Make your culinary creations look irresistible with our professional food photography.</p>
+              <a href="https://wa.me/1234567891" class="whatsapp-btn">
+                <i class="fab fa-whatsapp"></i> 1234 567 891
+              </a>
+            </div>
+          </div>
+          
+          <!-- Card 3 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Fashion" class="photo-img">
+            <div class="photo-info">
+              <h3 class="photo-title">Fashion Photography</h3>
+              <p class="photo-desc">Showcase your fashion line with stunning photography that captures every detail.</p>
+              <a href="https://wa.me/1234567892" class="whatsapp-btn">
+                <i class="fab fa-whatsapp"></i> 1234 567 892
+              </a>
+            </div>
+          </div>
+          
+          <!-- Card 4 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Product" class="photo-img">
+            <div class="photo-info">
+              <h3 class="photo-title">Product Photography</h3>
+              <p class="photo-desc">Professional product photography that highlights features and boosts sales.</p>
+              <a href="https://wa.me/1234567893" class="whatsapp-btn">
+                <i class="fab fa-whatsapp"></i> 1234 567 893
+              </a>
+            </div>
+          </div>
+          
+          <!-- Card 5 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Portrait" class="photo-img">
+            <div class="photo-info">
+              <h3 class="photo-title">Portrait Photography</h3>
+              <p class="photo-desc">Beautiful portraits that capture personality and emotion in every shot.</p>
+              <a href="https://wa.me/1234567894" class="whatsapp-btn">
+                <i class="fab fa-whatsapp"></i> 1234 567 894
+              </a>
+            </div>
+          </div>
+          
+          <!-- Card 6 -->
+          <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Landscape" class="photo-img">
+            <div class="photo-info">
+              <h3 class="photo-title">Landscape Photography</h3>
+              <p class="photo-desc">Breathtaking landscape photography that captures the essence of natural beauty.</p>
+              <a href="https://wa.me/1234567895" class="whatsapp-btn">
+                <i class="fab fa-whatsapp"></i> 1234 567 895
+              </a>
+            </div>
           </div>
         </div>
-        <div class="photo-wrapper">
-          <img src="photo2.jpg" alt="" />
-          <div class="info">
-            <div>
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
-            </div>
-            <a href="https://wa.me/1234567891" target="_blank" class="whatsapp-link">1234 567 891</a>
-          </div>
+        
+        <button class="arrow arrow-right" id="nextBtn">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+      
+      <div class="gallery-indicators" id="indicators"></div>
+    </div>
+    
+    <footer>
+      <p>Contact us for premium photography services</p>
+      <div class="contact-info">
+        <div class="contact-item">
+          <i class="fas fa-phone"></i>
+          <span>+90 123 456 7890</span>
         </div>
-        <div class="photo-wrapper">
-          <img src="photo3.jpg" alt="" />
-          <div class="info">
-            <div>
-              But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born.
-            </div>
-            <a href="https://wa.me/1234567892" target="_blank" class="whatsapp-link">1234 567 892</a>
-          </div>
+        <div class="contact-item">
+          <i class="fas fa-envelope"></i>
+          <span>info@photogallery.com</span>
         </div>
-        <div class="photo-wrapper">
-          <img src="photo4.jpg" alt="" />
-          <div class="info">
-            <div>
-              At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum.
-            </div>
-            <a href="https://wa.me/1234567893" target="_blank" class="whatsapp-link">1234 567 893</a>
-          </div>
-        </div>
-        <div class="photo-wrapper">
-          <img src="photo5.jpg" alt="" />
-          <div class="info">
-            <div>
-              On the other hand, we denounce with righteous indignation and dislike men who are so beguiled.
-            </div>
-            <a href="https://wa.me/1234567894" target="_blank" class="whatsapp-link">1234 567 894</a>
-          </div>
-        </div>
-        <div class="photo-wrapper">
-          <img src="photo6.jpg" alt="" />
-          <div class="info">
-            <div>
-              Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.
-            </div>
-            <a href="https://wa.me/1234567895" target="_blank" class="whatsapp-link">1234 567 895</a>
-          </div>
-        </div>
-        <div class="photo-wrapper">
-          <img src="photo7.jpg" alt="" />
-          <div class="info">
-            <div>
-              Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.
-            </div>
-            <a href="https://wa.me/1234567896" target="_blank" class="whatsapp-link">1234 567 896</a>
-          </div>
-        </div>
-        <div class="photo-wrapper">
-          <img src="photo8.jpg" alt="" />
-          <div class="info">
-            <div>
-              Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur.
-            </div>
-            <a href="https://wa.me/1234567897" target="_blank" class="whatsapp-link">1234 567 897</a>
-          </div>
-        </div>
-        <div class="photo-wrapper">
-          <img src="photo9.jpg" alt="" />
-          <div class="info">
-            <div>
-              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </div>
-            <a href="https://wa.me/1234567898" target="_blank" class="whatsapp-link">1234 567 898</a>
-          </div>
-        </div>
-        <div class="photo-wrapper">
-          <img src="photo10.jpg" alt="" />
-          <div class="info">
-            <div>
-              Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-            </div>
-            <a href="https://wa.me/1234567899" target="_blank" class="whatsapp-link">1234 567 899</a>
-          </div>
+        <div class="contact-item">
+          <i class="fas fa-map-marker-alt"></i>
+          <span>Istanbul, Turkey</span>
         </div>
       </div>
-      <button class="arrow right" onclick="scrollGallery(1)" aria-label="Next photos">&#8594;</button>
-    </div>
+    </footer>
   </div>
-
+  
   <script>
-    const gallery = document.getElementById("gallery");
-    const galleryContainer = document.querySelector(".gallery-container");
-    let scrollIndex = 0;
-
-    function getPhotoWidth() {
-      return window.innerWidth <= 500 ? 320 : 315;
-    }
-    function getVisibleCount() {
-      return window.innerWidth <= 500 ? 1 : 4;
-    }
-
-    function scrollGallery(direction) {
-      const photoCount = gallery.children.length;
-      const photoWidth = getPhotoWidth();
-      const visibleCount = getVisibleCount();
-
-      scrollIndex += direction;
-
-      if (scrollIndex < 0) scrollIndex = photoCount - visibleCount;
-      if (scrollIndex > photoCount - visibleCount) scrollIndex = 0;
-
-      const offset = scrollIndex * photoWidth;
-      gallery.style.transform = `translateX(-${offset}px)`;
-    }
-
-    // Mouse wheel support
-    galleryContainer.addEventListener('wheel', (event) => {
-      event.preventDefault();
-      if (event.deltaY > 0) {
-        scrollGallery(1);
-      } else {
-        scrollGallery(-1);
+    document.addEventListener('DOMContentLoaded', function() {
+      const gallery = document.getElementById('gallery');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const indicatorsContainer = document.getElementById('indicators');
+      const cards = document.querySelectorAll('.photo-card');
+      let currentIndex = 0;
+      
+      // Create indicators
+      cards.forEach((_, index) => {
+        const indicator = document.createElement('div');
+        indicator.classList.add('indicator');
+        if (index === 0) indicator.classList.add('active');
+        indicator.addEventListener('click', () => scrollToCard(index));
+        indicatorsContainer.appendChild(indicator);
+      });
+      
+      const indicators = document.querySelectorAll('.indicator');
+      
+      // Function to scroll to a specific card
+      function scrollToCard(index) {
+        currentIndex = index;
+        const cardWidth = cards[0].offsetWidth + 20; // Including gap
+        gallery.scrollTo({
+          left: index * cardWidth,
+          behavior: 'smooth'
+        });
+        updateIndicators();
       }
-    }, { passive: false });
-
-    // Touch swipe support
-    let touchStartX = 0;
-    let touchEndX = 0;
-
-    galleryContainer.addEventListener('touchstart', (event) => {
-      touchStartX = event.changedTouches[0].screenX;
-    });
-
-    galleryContainer.addEventListener('touchend', (event) => {
-      touchEndX = event.changedTouches[0].screenX;
-      handleGesture();
-    });
-
-    function handleGesture() {
-      const swipeThreshold = 50;
-      const diff = touchStartX - touchEndX;
-
-      if (Math.abs(diff) > swipeThreshold) {
-        if (diff > 0) {
-          scrollGallery(1);
-        } else {
-          scrollGallery(-1);
+      
+      // Update active indicator
+      function updateIndicators() {
+        indicators.forEach((indicator, index) => {
+          if (index === currentIndex) {
+            indicator.classList.add('active');
+          } else {
+            indicator.classList.remove('active');
+          }
+        });
+      }
+      
+      // Navigation buttons
+      prevBtn.addEventListener('click', () => {
+        if (currentIndex > 0) {
+          scrollToCard(currentIndex - 1);
         }
-      }
-    }
-
-    // Keyboard arrow support
-    window.addEventListener('keydown', (event) => {
-      if (event.key === "ArrowLeft") {
-        scrollGallery(-1);
-      } else if (event.key === "ArrowRight") {
-        scrollGallery(1);
-      }
-    });
-
-    window.addEventListener('resize', () => {
-      scrollIndex = 0;
-      gallery.style.transform = 'translateX(0)';
+      });
+      
+      nextBtn.addEventListener('click', () => {
+        if (currentIndex < cards.length - 1) {
+          scrollToCard(currentIndex + 1);
+        }
+      });
+      
+      // Handle scroll events to update indicators
+      gallery.addEventListener('scroll', () => {
+        const cardWidth = cards[0].offsetWidth + 20;
+        const scrollPosition = gallery.scrollLeft;
+        currentIndex = Math.round(scrollPosition / cardWidth);
+        updateIndicators();
+      });
+      
+      // Handle keyboard navigation
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft' && currentIndex > 0) {
+          scrollToCard(currentIndex - 1);
+        } else if (e.key === 'ArrowRight' && currentIndex < cards.length - 1) {
+          scrollToCard(currentIndex + 1);
+        }
+      });
+      
+      // Initialize gallery
+      updateIndicators();
     });
   </script>
 </body>
