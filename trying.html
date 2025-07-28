@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>Responsive Photo Gallery with Diagonal Background</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: white;
+      overflow-x: hidden;
+      position: relative;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      color: #333;
+    }
+
+    .diagonal-gray {
+      position: fixed;
+      width: 150vw;
+      height: 150vh;
+      background: #1e1e1e;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(45deg);
+      box-shadow: 0 0 30px rgba(0,0,0,0.1);
+      z-index: -1;
+    }
+
+    .gallery-wrapper {
+      position: relative;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 10;
+      color: white;
+    }
+
+    .gallery-title {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 0 20px 0;
+      font-size: 28px;
+      font-weight: bold;
+      text-align: center;
+      user-select: none;
+    }
+
+    .devil-horn {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      margin-bottom: 230px;
+    }
+
+    .gallery-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      overflow: visible;
+      padding-top: 80px;
+      background: transparent;
+      width: 100%;
+    }
+
+    .gallery {
+      display: flex;
+      transition: transform 0.5s ease;
+      will-change: transform;
+      overflow: visible;
+      position: relative;
+      width: 100%;
+    }
+
+    .photo-wrapper {
+      position: relative;
+      width: 175px;
+      height: 300px;
+      margin-right: 20px;
+      flex-shrink: 0;
+      border-radius: 20px;
+      overflow: visible;
+      cursor: pointer;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: transparent;
+      transition: width 0.5s ease, height 0.5s ease, z-index 0.3s ease;
+    }
+
+    .photo-wrapper:hover {
+      width: 300px;
+      height: 470px;
+      z-index: 30;
+    }
+
+    .photo-wrapper img {
+      width: 175px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 20px;
+      transition: width 0.5s ease, height 0.5s ease;
+      display: block;
+      will-change: width, height;
+      user-select: none;
+    }
+
+    .photo-wrapper:hover img {
+      width: 300px;
+      height: 300px;
+    }
+
+    .info {
+      margin-top: 10px;
+      width: 175px;
+      height: 140px;
+      background-color: rgba(255, 253, 208, 0.95);
+      color: #333;
+      padding: 15px;
+      border-radius: 15px;
+      box-sizing: border-box;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      opacity: 0;
+      pointer-events: none;
+      overflow-y: auto;
+      transition: opacity 0.3s ease, width 0.5s ease, height 0.5s ease;
+      user-select: text;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .photo-wrapper:hover .info,
+    .photo-wrapper .info:hover {
+      opacity: 1;
+      pointer-events: auto;
+      width: 300px;
+      height: 160px;
+    }
+
+    .read-more {
+      margin-top: 10px;
+      padding: 8px 10px;
+      width: 100%;
+      box-sizing: border-box;
+      background-color: #444;
+      color: white;
+      text-decoration: none;
+      border-radius: 10px;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      text-align: center;
+      user-select: none;
+      align-self: stretch;
+    }
+
+    .read-more:hover {
+      background-color: #666;
+      transform: scale(1.05);
+    }
+
+    .arrow {
+      background-color: #444;
+      color: white;
+      border: none;
+      padding: 10px;
+      font-size: 20px;
+      cursor: pointer;
+      border-radius: 10px;
+      z-index: 50;
+      position: absolute;
+      user-select: none;
+      top: -50px;
+      transition: background-color 0.3s ease;
+    }
+
+    .arrow:hover {
+      background-color: #666;
+    }
+
+    .arrow.left {
+      left: 0;
+    }
+
+    .arrow.right {
+      right: 0;
+    }
+
+    /* --- Responsive & Mobile Adjustments --- */
+    @media (max-width: 950px) {
+      .gallery-wrapper {
+        max-width: 100%;
+        padding: 0 20px;
+      }
+
+      .gallery-title {
+        font-size: 24px;
+        max-width: 100%;
+      }
+
+      .devil-horn {
+        margin-bottom: 150px;
+        width: 80px;
+        height: 80px;
+      }
+
+      .gallery-container {
+        padding-top: 60px;
+      }
+
+      .photo-wrapper {
+        width: 140px;
+        height: 250px;
+        margin-right: 15px;
+        transition: none; /* Disable hover anim on small screens */
+      }
+
+      .photo-wrapper:hover {
+        width: 140px;
+        height: 250px;
+        z-index: 1;
+      }
+
+      .photo-wrapper img {
+        width: 140px;
+        height: 120px;
+        border-radius: 15px;
+        transition: none;
+      }
+
+      /* Show info always on small screens */
+      .info {
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        width: 140px !important;
+        height: 140px !important;
+        margin-top: 8px;
+        font-size: 13px;
+        padding: 12px 10px;
+      }
+
+      .read-more {
+        padding: 6px 8px;
+        font-size: 14px;
+      }
+
+      .arrow {
+        padding: 8px;
+        font-size: 18px;
+        top: -40px;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .devil-horn {
+        width: 70px;
+        height: 70px;
+        margin-bottom: 100px;
+      }
+
+      .gallery-title {
+        font-size: 20px;
+      }
+
+      .photo-wrapper {
+        width: 120px;
+        height: 220px;
+        margin-right: 12px;
+      }
+
+      .photo-wrapper img {
+        width: 120px;
+        height: 110px;
+        border-radius: 12px;
+      }
+
+      .info {
+        width: 120px !important;
+        height: 130px !important;
+        font-size: 12px;
+        padding: 10px 8px;
+      }
+
+      .read-more {
+        font-size: 13px;
+        padding: 5px 7px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="diagonal-gray"></div>
+
+  <div class="gallery-wrapper">
+    <h1 class="gallery-title">Lorem Ipsum</h1>
+
+    <img src="devil-horn.png" alt="Devil Horn" class="devil-horn" />
+
+    <div class="gallery-container" tabindex="0">
+      <button class="arrow left" onclick="scrollGallery(-1)" aria-label="Previous photos">&#8592;</button>
+      <div class="gallery" id="gallery">
+        <div class="photo-wrapper">
+          <img src="photo1.jpg" alt="" />
+          <div class="info">
+            <div>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </div>
+            <a href="details.html" class="read-more">Read More</a>
+          </div>
+        </div>
+        <div class="photo-wrapper">
+          <img src="photo2.jpg" alt="" />
+          <div class="info">
+            <div>
+              Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
+            </div>
+            <a href="details.html" class="read-more">Read More</a>
+          </div>
+        </div>
+        <div class="photo-wrapper">
+          <img src="photo3.jpg" alt="" />
+          <div class="info">
+            <div>
+              But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born.
+            </div>
+            <a href="details.html" class="read-more">Read More</a>
+          </div>
+        </div>
+        <div class="photo-wrapper">
+          <img src="photo4.jpg" alt="" />
+          <div class="info">
+            <div>
+              At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum.
+            </div>
+            <a href="details.html" class="read-more">Read More</a>
+          </div>
+        </div>
+        <div class="photo-wrapper">
+          <img src="photo5.jpg" alt="" />
+          <div class="info">
+            <div>
+              On the other hand, we denounce with righteous indignation and dislike men who are so beguiled.
+            </div>
+            <a href="details.html" class="read-more">Read More</a>
+          </div>
+        </div>
+        <div class="photo-wrapper">
+          <img src="photo6.jpg" alt="" />
+          <div class="info">
+            <div>
+              Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.
+            </div>
+            <a href="details.html" class="read-more">Read More</a>
+          </div>
+        </div>
+        <div class="photo-wrapper">
+          <img src="photo7.jpg" alt="" />
+          <div class="info">
+            <div>
+              Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.
+            </div>
+            <a href="details.html" class="read-more">Read More</a>
+          </div>
+        </div>
+        <div class="photo-wrapper">
+          <img src="photo8.jpg" alt="" />
+          <div class="info">
+            <div>
+              Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur.
+            </div>
+            <a href="details.html" class="read-more">Read More</a>
+          </div>
+        </div>
+        <div class="photo-wrapper">
+          <img src="photo9.jpg" alt="" />
+          <div class="info">
+            <div>
+              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </div>
+            <a href="details.html" class="read-more">Read More</a>
+          </div>
+        </div>
+        <div class="photo-wrapper">
+          <img src="photo10.jpg" alt="" />
+          <div class="info">
+            <div>
+              Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            </div>
+            <a href="details.html" class="read-more">Read More</a>
+          </div>
+        </div>
+      </div>
+      <button class="arrow right" onclick="scrollGallery(1)" aria-label="Next photos">&#8594;</button>
+    </div>
+  </div>
+
+  <script>
+    const gallery = document.getElementById("gallery");
+    const galleryContainer = document.querySelector(".gallery-container");
+    let scrollIndex = 0;
+    const visibleCount = 4;
+    const photoWidth = 195; // 175 + 20 margin
+
+    function scrollGallery(direction) {
+      const photoCount = gallery.children.length;
+      scrollIndex += direction;
+
+      if (scrollIndex < 0) scrollIndex = photoCount - visibleCount;
+      if (scrollIndex > photoCount - visibleCount) scrollIndex = 0;
+
+      const offset = scrollIndex * photoWidth;
+      gallery.style.transform = `translateX(-${offset}px)`;
+    }
+
+    // Mouse wheel support
+    galleryContainer.addEventListener('wheel', (event) => {
+      event.preventDefault();
+      if (event.deltaY > 0) {
+        scrollGallery(1);
+      } else {
+        scrollGallery(-1);
+      }
+    }, { passive: false });
+
+    // Touch swipe support
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    galleryContainer.addEventListener('touchstart', (event) => {
+      touchStartX = event.changedTouches[0].screenX;
+    });
+
+    galleryContainer.addEventListener('touchend', (event) => {
+      touchEndX = event.changedTouches[0].screenX;
+      handleGesture();
+    });
+
+    function handleGesture() {
+      const swipeThreshold = 50; // minimum px for swipe
+      const diff = touchStartX - touchEndX;
+
+      if (Math.abs(diff) > swipeThreshold) {
+        if (diff > 0) {
+          // swipe left -> next slide
+          scrollGallery(1);
+        } else {
+          // swipe right -> prev slide
+          scrollGallery(-1);
+        }
+      }
+    }
+
+    // Keyboard arrow support
+    window.addEventListener('keydown', (event) => {
+      if (event.key === "ArrowLeft") {
+        scrollGallery(-1);
+      } else if (event.key === "ArrowRight") {
+        scrollGallery(1);
+      }
+    });
+  </script>
+</body>
+</html>
