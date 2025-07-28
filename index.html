@@ -130,6 +130,7 @@
       overflow-y: auto;
       transition: opacity 0.3s ease, width 0.5s ease, height 0.5s ease;
       user-select: text;
+
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -143,26 +144,23 @@
       height: 160px;
     }
 
-    .phone-number {
+    .read-more {
       margin-top: 10px;
       padding: 8px 10px;
       width: 100%;
       box-sizing: border-box;
-      background-color: #25d366; /* WhatsApp green */
+      background-color: #444;
       color: white;
       text-decoration: none;
       border-radius: 10px;
       transition: background-color 0.3s ease, transform 0.3s ease;
       text-align: center;
       user-select: none;
-      display: inline-block;
-      cursor: pointer;
-      font-weight: bold;
-      font-family: Arial, sans-serif;
+      align-self: stretch;
     }
 
-    .phone-number:hover {
-      background-color: #128c4a;
+    .read-more:hover {
+      background-color: #666;
       transform: scale(1.05);
     }
 
@@ -223,79 +221,61 @@
     }
 
     @media (max-width: 500px) {
-      body {
-        background-color: #1e1e1e;
-        color: white;
-      }
-
-      .diagonal-gray {
-        display: none; /* hide diagonal bg on small screens for clarity */
-      }
-
-      .gallery-wrapper {
-        max-width: 100%;
-        padding: 0 10px;
+      .devil-horn {
+        width: 70px;
+        height: 70px;
+        margin-bottom: 100px;
       }
 
       .gallery-title {
         font-size: 20px;
-        margin-bottom: 20px;
-      }
-
-      .devil-horn {
-        width: 70px;
-        height: 70px;
-        margin-bottom: 40px;
       }
 
       .gallery-container {
-        padding-top: 40px;
+        width: 320px; /* Show only 1 photo width */
+        overflow: hidden;
+        margin: 0 auto;
+      }
+
+      .gallery {
+        width: max-content;
+        transition: transform 0.5s ease;
       }
 
       .photo-wrapper {
-        width: 260px !important;
-        height: auto !important;
-        margin-right: 12px;
+        width: 300px !important;
+        height: 470px !important;
+        margin-right: 20px;
         cursor: default;
-        flex-direction: column;
-        align-items: center;
         transition: none !important;
         z-index: 1 !important;
       }
 
       .photo-wrapper img {
-        width: 260px !important;
-        height: 260px !important;
-        border-radius: 15px;
+        width: 300px !important;
+        height: 300px !important;
+        border-radius: 20px;
         transition: none !important;
-        pointer-events: none;
-        user-select: none;
       }
 
       .info {
-        width: 260px !important;
-        height: auto !important;
-        font-size: 14px;
-        padding: 12px 10px;
         opacity: 1 !important;
         pointer-events: auto !important;
-        box-shadow: none !important;
+        width: 300px !important;
+        height: 160px !important;
         margin-top: 10px;
-        color: #25d366;
-        background-color: #222; /* dark info bg */
+        font-size: 14px;
+        padding: 15px;
       }
 
-      .phone-number {
-        font-size: 14px;
-        padding: 10px;
-        background-color: #25d366;
-        border-radius: 10px;
+      .read-more {
+        display: none; /* Remove on mobile if you want, or keep */
       }
 
       .arrow {
         padding: 8px;
         font-size: 18px;
-        top: -40px;
+        top: -80px; /* moved up so visible */
       }
     }
   </style>
@@ -317,9 +297,7 @@
             <div>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             </div>
-            <a href="https://wa.me/12345678987" target="_blank" rel="noopener noreferrer" class="phone-number">
-              📞 1234 5678 9787
-            </a>
+            <a href="details.html" class="read-more">Read More</a>
           </div>
         </div>
         <div class="photo-wrapper">
@@ -328,9 +306,7 @@
             <div>
               Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
             </div>
-            <a href="https://wa.me/12345678987" target="_blank" rel="noopener noreferrer" class="phone-number">
-              📞 1234 5678 9787
-            </a>
+            <a href="details.html" class="read-more">Read More</a>
           </div>
         </div>
         <div class="photo-wrapper">
@@ -339,9 +315,7 @@
             <div>
               But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born.
             </div>
-            <a href="https://wa.me/12345678987" target="_blank" rel="noopener noreferrer" class="phone-number">
-              📞 1234 5678 9787
-            </a>
+            <a href="details.html" class="read-more">Read More</a>
           </div>
         </div>
         <div class="photo-wrapper">
@@ -350,9 +324,7 @@
             <div>
               At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum.
             </div>
-            <a href="https://wa.me/12345678987" target="_blank" rel="noopener noreferrer" class="phone-number">
-              📞 1234 5678 9787
-            </a>
+            <a href="details.html" class="read-more">Read More</a>
           </div>
         </div>
         <div class="photo-wrapper">
@@ -361,9 +333,7 @@
             <div>
               On the other hand, we denounce with righteous indignation and dislike men who are so beguiled.
             </div>
-            <a href="https://wa.me/12345678987" target="_blank" rel="noopener noreferrer" class="phone-number">
-              📞 1234 5678 9787
-            </a>
+            <a href="details.html" class="read-more">Read More</a>
           </div>
         </div>
         <div class="photo-wrapper">
@@ -372,9 +342,7 @@
             <div>
               Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.
             </div>
-            <a href="https://wa.me/12345678987" target="_blank" rel="noopener noreferrer" class="phone-number">
-              📞 1234 5678 9787
-            </a>
+            <a href="details.html" class="read-more">Read More</a>
           </div>
         </div>
         <div class="photo-wrapper">
@@ -383,9 +351,7 @@
             <div>
               Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.
             </div>
-            <a href="https://wa.me/12345678987" target="_blank" rel="noopener noreferrer" class="phone-number">
-              📞 1234 5678 9787
-            </a>
+            <a href="details.html" class="read-more">Read More</a>
           </div>
         </div>
         <div class="photo-wrapper">
@@ -394,9 +360,7 @@
             <div>
               Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur.
             </div>
-            <a href="https://wa.me/12345678987" target="_blank" rel="noopener noreferrer" class="phone-number">
-              📞 1234 5678 9787
-            </a>
+            <a href="details.html" class="read-more">Read More</a>
           </div>
         </div>
         <div class="photo-wrapper">
@@ -405,9 +369,7 @@
             <div>
               Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
             </div>
-            <a href="https://wa.me/12345678987" target="_blank" rel="noopener noreferrer" class="phone-number">
-              📞 1234 5678 9787
-            </a>
+            <a href="details.html" class="read-more">Read More</a>
           </div>
         </div>
         <div class="photo-wrapper">
@@ -416,9 +378,7 @@
             <div>
               Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
             </div>
-            <a href="https://wa.me/12345678987" target="_blank" rel="noopener noreferrer" class="phone-number">
-              📞 1234 5678 9787
-            </a>
+            <a href="details.html" class="read-more">Read More</a>
           </div>
         </div>
       </div>
@@ -430,11 +390,22 @@
     const gallery = document.getElementById("gallery");
     const galleryContainer = document.querySelector(".gallery-container");
     let scrollIndex = 0;
-    const visibleCount = 4;
-    const photoWidth = 315; // updated for bigger photo + margin: 300 + 15
+
+    // For desktop: visibleCount = 4, photoWidth = 315 (300+15)
+    // For mobile: visibleCount = 1, photoWidth = 320
+
+    function getPhotoWidth() {
+      return window.innerWidth <= 500 ? 320 : 315;
+    }
+    function getVisibleCount() {
+      return window.innerWidth <= 500 ? 1 : 4;
+    }
 
     function scrollGallery(direction) {
       const photoCount = gallery.children.length;
+      const photoWidth = getPhotoWidth();
+      const visibleCount = getVisibleCount();
+
       scrollIndex += direction;
 
       if (scrollIndex < 0) scrollIndex = photoCount - visibleCount;
@@ -489,6 +460,12 @@
       } else if (event.key === "ArrowRight") {
         scrollGallery(1);
       }
+    });
+
+    // Optional: Reset scrollIndex on resize to avoid weird offsets
+    window.addEventListener('resize', () => {
+      scrollIndex = 0;
+      gallery.style.transform = 'translateX(0)';
     });
   </script>
 </body>
