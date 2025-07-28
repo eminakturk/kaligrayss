@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
@@ -130,7 +130,6 @@
       overflow-y: auto;
       transition: opacity 0.3s ease, width 0.5s ease, height 0.5s ease;
       user-select: text;
-
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -144,7 +143,7 @@
       height: 160px;
     }
 
-    .read-more {
+    .whatsapp-link {
       margin-top: 10px;
       padding: 8px 10px;
       width: 100%;
@@ -157,9 +156,10 @@
       text-align: center;
       user-select: none;
       align-self: stretch;
+      font-weight: bold;
     }
 
-    .read-more:hover {
+    .whatsapp-link:hover {
       background-color: #666;
       transform: scale(1.05);
     }
@@ -191,13 +191,23 @@
       right: 0;
     }
 
+    .mobile-swipe-text {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: -50px;
+      color: white;
+      font-weight: bold;
+      user-select: none;
+    }
+
     /* --- Responsive & Mobile Adjustments --- */
     @media (max-width: 950px) {
       .photo-wrapper {
         width: 300px !important;
         height: 470px !important;
         margin-right: 15px;
-        cursor: default; /* no hover */
+        cursor: default;
         transition: none !important;
         z-index: 1 !important;
       }
@@ -232,7 +242,7 @@
       }
 
       .gallery-container {
-        width: 320px; /* Show only 1 photo width */
+        width: 320px;
         overflow: hidden;
         margin: 0 auto;
       }
@@ -268,14 +278,14 @@
         padding: 15px;
       }
 
-      .read-more {
-        display: none; /* Remove on mobile if you want, or keep */
+      .mobile-swipe-text {
+        display: block;
       }
 
       .arrow {
         padding: 8px;
         font-size: 18px;
-        top: -80px; /* moved up so visible */
+        top: -80px;
       }
     }
   </style>
@@ -290,6 +300,7 @@
 
     <div class="gallery-container" tabindex="0">
       <button class="arrow left" onclick="scrollGallery(-1)" aria-label="Previous photos">&#8592;</button>
+      <div class="mobile-swipe-text">Kaydır</div>
       <div class="gallery" id="gallery">
         <div class="photo-wrapper">
           <img src="photo1.jpg" alt="" />
@@ -297,7 +308,7 @@
             <div>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             </div>
-            <a href="details.html" class="read-more">Read More</a>
+            <a href="https://wa.me/1234567890" target="_blank" class="whatsapp-link">1234 567 890</a>
           </div>
         </div>
         <div class="photo-wrapper">
@@ -306,7 +317,7 @@
             <div>
               Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
             </div>
-            <a href="details.html" class="read-more">Read More</a>
+            <a href="https://wa.me/1234567891" target="_blank" class="whatsapp-link">1234 567 891</a>
           </div>
         </div>
         <div class="photo-wrapper">
@@ -315,7 +326,7 @@
             <div>
               But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born.
             </div>
-            <a href="details.html" class="read-more">Read More</a>
+            <a href="https://wa.me/1234567892" target="_blank" class="whatsapp-link">1234 567 892</a>
           </div>
         </div>
         <div class="photo-wrapper">
@@ -324,7 +335,7 @@
             <div>
               At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum.
             </div>
-            <a href="details.html" class="read-more">Read More</a>
+            <a href="https://wa.me/1234567893" target="_blank" class="whatsapp-link">1234 567 893</a>
           </div>
         </div>
         <div class="photo-wrapper">
@@ -333,7 +344,7 @@
             <div>
               On the other hand, we denounce with righteous indignation and dislike men who are so beguiled.
             </div>
-            <a href="details.html" class="read-more">Read More</a>
+            <a href="https://wa.me/1234567894" target="_blank" class="whatsapp-link">1234 567 894</a>
           </div>
         </div>
         <div class="photo-wrapper">
@@ -342,7 +353,7 @@
             <div>
               Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.
             </div>
-            <a href="details.html" class="read-more">Read More</a>
+            <a href="https://wa.me/1234567895" target="_blank" class="whatsapp-link">1234 567 895</a>
           </div>
         </div>
         <div class="photo-wrapper">
@@ -351,7 +362,7 @@
             <div>
               Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.
             </div>
-            <a href="details.html" class="read-more">Read More</a>
+            <a href="https://wa.me/1234567896" target="_blank" class="whatsapp-link">1234 567 896</a>
           </div>
         </div>
         <div class="photo-wrapper">
@@ -360,7 +371,7 @@
             <div>
               Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur.
             </div>
-            <a href="details.html" class="read-more">Read More</a>
+            <a href="https://wa.me/1234567897" target="_blank" class="whatsapp-link">1234 567 897</a>
           </div>
         </div>
         <div class="photo-wrapper">
@@ -369,7 +380,7 @@
             <div>
               Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
             </div>
-            <a href="details.html" class="read-more">Read More</a>
+            <a href="https://wa.me/1234567898" target="_blank" class="whatsapp-link">1234 567 898</a>
           </div>
         </div>
         <div class="photo-wrapper">
@@ -378,7 +389,7 @@
             <div>
               Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
             </div>
-            <a href="details.html" class="read-more">Read More</a>
+            <a href="https://wa.me/1234567899" target="_blank" class="whatsapp-link">1234 567 899</a>
           </div>
         </div>
       </div>
@@ -390,9 +401,6 @@
     const gallery = document.getElementById("gallery");
     const galleryContainer = document.querySelector(".gallery-container");
     let scrollIndex = 0;
-
-    // For desktop: visibleCount = 4, photoWidth = 315 (300+15)
-    // For mobile: visibleCount = 1, photoWidth = 320
 
     function getPhotoWidth() {
       return window.innerWidth <= 500 ? 320 : 315;
@@ -439,15 +447,13 @@
     });
 
     function handleGesture() {
-      const swipeThreshold = 50; // minimum px for swipe
+      const swipeThreshold = 50;
       const diff = touchStartX - touchEndX;
 
       if (Math.abs(diff) > swipeThreshold) {
         if (diff > 0) {
-          // swipe left -> next slide
           scrollGallery(1);
         } else {
-          // swipe right -> prev slide
           scrollGallery(-1);
         }
       }
@@ -462,7 +468,6 @@
       }
     });
 
-    // Optional: Reset scrollIndex on resize to avoid weird offsets
     window.addEventListener('resize', () => {
       scrollIndex = 0;
       gallery.style.transform = 'translateX(0)';
