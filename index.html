@@ -950,7 +950,7 @@
           
           <!-- Card 10 -->
           <div class="photo-card">
-            <img src="https://images.unsplash.com/photo-1569173112611-52a7cd38bea9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Fine Art" class="photo-img">
+            <img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Nature" class="photo-img">
           </div>
         </div>
         
@@ -1089,22 +1089,22 @@
           
           <!-- Card 7 -->
           <div class="photo-card">
-            <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0e4a6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Wedding" class="photo-img">
+            <img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Architecture" class="photo-img">
           </div>
           
           <!-- Card 8 -->
           <div class="photo-card">
-            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Abstract" class="photo-img">
+            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Street" class="photo-img">
           </div>
           
           <!-- Card 9 -->
           <div class="photo-card">
-            <img src="https://images.unsplash.com/photo-1493612276216-ee3925520721?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Event" class="photo-img">
+            <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0e4a6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Wedding" class="photo-img">
           </div>
           
           <!-- Card 10 -->
           <div class="photo-card">
-            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Business" class="photo-img">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Abstract" class="photo-img">
           </div>
         </div>
         
@@ -1258,7 +1258,7 @@
           
           <!-- Card 10 -->
           <div class="photo-card">
-            <img src="https://images.unsplash.com/photo-1569173112611-52a7cd38bea9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Fine Art" class="photo-img">
+            <img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Nature" class="photo-img">
           </div>
         </div>
         
@@ -1489,7 +1489,7 @@
           
           <!-- Card 10 -->
           <div class="photo-card">
-            <img src="https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Macro" class="photo-img">
+                       <img src="https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Macro" class="photo-img">
           </div>
         </div>
         
@@ -1614,17 +1614,6 @@
         }
       });
       
-      // Pause auto slide on hover
-      gallery.addEventListener('mouseenter', () => {
-        if (animationFrame) {
-          cancelAnimationFrame(animationFrame);
-        }
-      });
-      
-      gallery.addEventListener('mouseleave', () => {
-        startGlobalAutoSlide();
-      });
-      
       // Initialize gallery
       updateIndicators();
     });
@@ -1716,17 +1705,6 @@
         currentIndex2 = Math.round(scrollPosition / cardWidth);
         galleries[1].currentIndex = currentIndex2;
         updateIndicators2();
-      });
-      
-      // Pause auto slide on hover for second gallery
-      gallery2.addEventListener('mouseenter', () => {
-        if (animationFrame) {
-          cancelAnimationFrame(animationFrame);
-        }
-      });
-      
-      gallery2.addEventListener('mouseleave', () => {
-        startGlobalAutoSlide();
       });
       
       // Initialize second gallery
@@ -1822,15 +1800,6 @@
         updateIndicators3();
       });
       
-      // Pause auto slide on hover for third gallery
-      gallery3.addEventListener('mouseenter', () => {
-        clearInterval(globalAutoSlideInterval);
-      });
-      
-      gallery3.addEventListener('mouseleave', () => {
-        startGlobalAutoSlide();
-      });
-      
       // Initialize third gallery
       updateIndicators3();
     });
@@ -1924,22 +1893,8 @@
         updateIndicators4();
       });
       
-      // Pause auto slide on hover for fourth gallery
-      gallery4.addEventListener('mouseenter', () => {
-        clearInterval(globalAutoSlideInterval);
-      });
-      
-      gallery4.addEventListener('mouseleave', () => {
-        startGlobalAutoSlide();
-      });
-      
       // Initialize fourth gallery
       updateIndicators4();
-      
-      // Start global synchronized auto-slide after all galleries are initialized
-      setTimeout(() => {
-        startGlobalAutoSlide();
-      }, 100);
     });
 
     // Fifth Gallery JavaScript
@@ -2023,14 +1978,6 @@
         currentIndex5 = Math.round(scrollPosition / cardWidth);
         galleries[4].currentIndex = currentIndex5;
         updateIndicators5();
-      });
-      
-      gallery5.addEventListener('mouseenter', () => {
-        clearInterval(globalAutoSlideInterval);
-      });
-      
-      gallery5.addEventListener('mouseleave', () => {
-        startGlobalAutoSlide();
       });
       
       updateIndicators5();
@@ -2119,14 +2066,6 @@
         updateIndicators6();
       });
       
-      gallery6.addEventListener('mouseenter', () => {
-        clearInterval(globalAutoSlideInterval);
-      });
-      
-      gallery6.addEventListener('mouseleave', () => {
-        startGlobalAutoSlide();
-      });
-      
       updateIndicators6();
     });
 
@@ -2211,14 +2150,6 @@
         currentIndex7 = Math.round(scrollPosition / cardWidth);
         galleries[6].currentIndex = currentIndex7;
         updateIndicators7();
-      });
-      
-      gallery7.addEventListener('mouseenter', () => {
-        clearInterval(globalAutoSlideInterval);
-      });
-      
-      gallery7.addEventListener('mouseleave', () => {
-        startGlobalAutoSlide();
       });
       
       updateIndicators7();
@@ -2307,14 +2238,6 @@
         updateIndicators8();
       });
       
-      gallery8.addEventListener('mouseenter', () => {
-        clearInterval(globalAutoSlideInterval);
-      });
-      
-      gallery8.addEventListener('mouseleave', () => {
-        startGlobalAutoSlide();
-      });
-      
       updateIndicators8();
     });
 
@@ -2399,14 +2322,6 @@
         currentIndex9 = Math.round(scrollPosition / cardWidth);
         galleries[8].currentIndex = currentIndex9;
         updateIndicators9();
-      });
-      
-      gallery9.addEventListener('mouseenter', () => {
-        clearInterval(globalAutoSlideInterval);
-      });
-      
-      gallery9.addEventListener('mouseleave', () => {
-        startGlobalAutoSlide();
       });
       
       updateIndicators9();
@@ -2495,14 +2410,6 @@
         updateIndicators10();
       });
       
-      gallery10.addEventListener('mouseenter', () => {
-        clearInterval(globalAutoSlideInterval);
-      });
-      
-      gallery10.addEventListener('mouseleave', () => {
-        startGlobalAutoSlide();
-      });
-      
       updateIndicators10();
     });
 
@@ -2587,14 +2494,6 @@
         currentIndex11 = Math.round(scrollPosition / cardWidth);
         galleries[10].currentIndex = currentIndex11;
         updateIndicators11();
-      });
-      
-      gallery11.addEventListener('mouseenter', () => {
-        clearInterval(globalAutoSlideInterval);
-      });
-      
-      gallery11.addEventListener('mouseleave', () => {
-        startGlobalAutoSlide();
       });
       
       updateIndicators11();
@@ -2683,14 +2582,6 @@
         updateIndicators12();
       });
       
-      gallery12.addEventListener('mouseenter', () => {
-        clearInterval(globalAutoSlideInterval);
-      });
-      
-      gallery12.addEventListener('mouseleave', () => {
-        startGlobalAutoSlide();
-      });
-      
       updateIndicators12();
     });
 
@@ -2775,14 +2666,6 @@
         currentIndex13 = Math.round(scrollPosition / cardWidth);
         galleries[12].currentIndex = currentIndex13;
         updateIndicators13();
-      });
-      
-      gallery13.addEventListener('mouseenter', () => {
-        clearInterval(globalAutoSlideInterval);
-      });
-      
-      gallery13.addEventListener('mouseleave', () => {
-        startGlobalAutoSlide();
       });
       
       updateIndicators13();
@@ -2871,17 +2754,30 @@
         updateIndicators14();
       });
       
-      gallery14.addEventListener('mouseenter', () => {
-        clearInterval(globalAutoSlideInterval);
-      });
-      
-      gallery14.addEventListener('mouseleave', () => {
-        startGlobalAutoSlide();
-      });
-      
       updateIndicators14();
     });
     
+    // Helper function to pause/resume auto-slide on touch/click for mobile/desktop
+    function addPauseResumeEvents(galleryElement) {
+      // Mobile: pause on touch, resume on touch end
+      galleryElement.addEventListener('touchstart', () => {
+        if (animationFrame) cancelAnimationFrame(animationFrame);
+      }, { passive: true });
+
+      galleryElement.addEventListener('touchend', () => {
+        startGlobalAutoSlide();
+      }, { passive: true });
+
+      // Desktop: pause on mouse down, resume on mouse up
+      galleryElement.addEventListener('mousedown', () => {
+        if (animationFrame) cancelAnimationFrame(animationFrame);
+      });
+
+      galleryElement.addEventListener('mouseup', () => {
+        startGlobalAutoSlide();
+      });
+    }
+
     // Global synchronized auto-slide functions
     let scrollSpeed = 1; // pixels per frame
     let animationFrame;
@@ -2916,6 +2812,22 @@
       }
       startGlobalAutoSlide();
     }
+
+    // After each gallery is initialized, add:
+    addPauseResumeEvents(gallery);    // For first gallery
+    addPauseResumeEvents(gallery2);   // For second gallery
+    addPauseResumeEvents(gallery3);
+    addPauseResumeEvents(gallery4);
+    addPauseResumeEvents(gallery5);
+    addPauseResumeEvents(gallery6);
+    addPauseResumeEvents(gallery7);
+    addPauseResumeEvents(gallery8);
+    addPauseResumeEvents(gallery9);
+    addPauseResumeEvents(gallery10);
+    addPauseResumeEvents(gallery11);
+    addPauseResumeEvents(gallery12);
+    addPauseResumeEvents(gallery13);
+    addPauseResumeEvents(gallery14);
   </script>
 </body>
 </html>
